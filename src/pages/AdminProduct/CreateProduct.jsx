@@ -7,6 +7,7 @@ function CreateProduct() {
     let navigate = useNavigate();
     let accessToken = localStorage.getItem("tokenSession");
     const { showToast } = useToast();
+    // const userId = localStorage.getItem('userId')
 
     // State untuk menyimpan data input
     const [formData, setFormData] = useState({
@@ -73,7 +74,7 @@ function CreateProduct() {
                 <label>Description:</label>
                 <textarea name="description" value={formData.description} onChange={handleChange} required style={{ width: "100%", padding: "8px", height: "100px" }} />
 
-                <button type="submit" style={{ padding: "10px", backgroundColor: "#007BFF", color: "white", border: "none", cursor: "pointer" }}>
+                <button type="submit" style={{ padding: "10px", backgroundColor: "#007BFF", color: "white", cursor: "pointer" }}>
                     ➕ Tambah Produk
                 </button>
             </form>
