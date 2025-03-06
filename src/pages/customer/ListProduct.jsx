@@ -3,6 +3,7 @@ import { Carousel, Row, Col, Typography, Card, Button, Input, Divider } from 'an
 import { ShoppingCartOutlined, FireFilled, StarFilled } from '@ant-design/icons';
 import axios from 'axios';
 import './ListProduct.css'; // Create this CSS file for custom styles
+import { Link } from 'react-router';
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -16,7 +17,7 @@ const ListProduct = () => {
       try {
         const productsResponse = await axios.get("http://10.50.0.13:3002/products");
         const categoriesResponse = await axios.get("http://10.50.0.13:3002/categories");
-        
+
         setFeaturedProducts(productsResponse.data);
         setCategories(categoriesResponse.data);
       } catch (error) {
@@ -47,16 +48,16 @@ const ListProduct = () => {
         <Carousel autoplay effect="fade">
           {heroContent.map((slide, index) => (
             <div key={index} className="hero-slide">
-              <img 
-                src={slide.image} 
+              <img
+                src={slide.image}
                 alt={slide.title}
                 className="hero-image"
               />
               <div className="hero-content">
                 <Title level={1} className="hero-title">{slide.title}</Title>
                 <Text className="hero-subtitle">{slide.subtitle}</Text>
-                <Button 
-                  type="primary" 
+                <Button
+                  type="primary"
                   size="large"
                   icon={<ShoppingCartOutlined />}
                   className="hero-cta"
@@ -88,12 +89,14 @@ const ListProduct = () => {
                   />
                 }
                 actions={[
-                  <Button 
-                    type="primary" 
-                    icon={<ShoppingCartOutlined />}
+                  <Button
+                    type="primary"
+                    // icon={<ShoppingCartOutlined />}
                     block
                   >
-                    Add to Cart
+                    <Link>
+                      Detail
+                    </Link>
                   </Button>
                 ]}
               >
@@ -123,7 +126,7 @@ const ListProduct = () => {
         <Divider>
           <Title level={4}>Subscribe to Our Newsletter</Title>
         </Divider>
-        
+
         <div className="newsletter-content">
           <Text>Get updates about new products and special offers</Text>
           <Search
