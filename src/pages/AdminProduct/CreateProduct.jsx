@@ -12,7 +12,7 @@ function CreateProduct() {
     const [formData, setFormData] = useState({
         image: "",
         name: "",
-        category: "",
+        categoryId: "",
         price: "",
         stock: "",
         description: "",
@@ -35,7 +35,7 @@ function CreateProduct() {
                 "http://10.50.0.13:3002/products",{
                     name: formData.name,
                     price: formData.price,
-                    categoryId: formData.category,
+                    categoryId: formData.categoryId,
                     image: formData.image,
                     description: formData.description,
                     stock: formData.stock,
@@ -62,7 +62,7 @@ function CreateProduct() {
                 <input type="text" name="name" value={formData.name} onChange={handleChange} required style={{ width: "100%", padding: "8px" }} />
 
                 <label>Category:</label>
-                <input type="text" name="category" value={formData.category} onChange={handleChange} required style={{ width: "100%", padding: "8px" }} />
+                <input type="text" name="categoryId" value={formData.categoryId} onChange={handleChange} required style={{ width: "100%", padding: "8px" }} />
 
                 <label>Price:</label>
                 <input type="number" name="price" value={formData.price} onChange={handleChange} required style={{ width: "100%", padding: "8px" }} />
