@@ -22,6 +22,8 @@ import EditProduct from './pages/AdminProduct/EditProduct.jsx';
 import TambahCategory from './pages/admin/TambahCategory.jsx';
 import EditCategory from './pages/admin/EditCategory.jsx';
 import ListCategory from './pages/admin/ListCategory.jsx';
+import ProductDetail from './pages/customer/ProductDetail.jsx';
+import { ConfigProvider, theme } from 'antd';
 
 
 const token = localStorage.getItem("tokenSession");
@@ -36,9 +38,14 @@ createRoot(document.getElementById('root')).render(
 
       <AuthProvider>
 
-        {/* <Menus /> */}
+        <ConfigProvider
+          theme={{
+            algorithm: theme.darkAlgorithm,
+          }}
+        >
+          {/* <Menus /> */}
 
-        <ToastProvider>
+          <ToastProvider>
 
           <Routes>
             <Route path="/" element={<App />} />
@@ -59,8 +66,10 @@ createRoot(document.getElementById('root')).render(
             <Route path="/customer/product" element={<CustomerListProduct />} />
           </Routes>
 
-          <Toaster />
-        </ToastProvider>
+
+            <Toaster />
+          </ToastProvider>
+        </ConfigProvider>
       </AuthProvider>
 
     </BrowserRouter>
