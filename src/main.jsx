@@ -21,6 +21,7 @@ import EditProduct from './pages/AdminProduct/EditProduct.jsx';
 import TambahCategory from './pages/admin/TambahCategory.jsx';
 import EditCategory from './pages/admin/EditCategory.jsx';
 import ListCategory from './pages/admin/ListCategory.jsx';
+import { ConfigProvider, theme } from 'antd';
 
 
 const token = localStorage.getItem("tokenSession");
@@ -35,30 +36,36 @@ createRoot(document.getElementById('root')).render(
 
       <AuthProvider>
 
-        {/* <Menus /> */}
+        <ConfigProvider
+          theme={{
+            algorithm: theme.darkAlgorithm,
+          }}
+        >
+          {/* <Menus /> */}
 
-        <ToastProvider>
+          <ToastProvider>
 
-          <Routes>
-            <Route path="/" element={<App />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/work" element={<WorkExperience />} />
-            <Route path="/education" element={<Education />} />
-            <Route path="/personal-data" element={<PersonalData />} />
-            <Route path="/personal-data/:id" element={<DetailPersonalData />} />
-            <Route path="/personal-data/tambah" element={<TambahPersonalData />} />
-            <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/list-product" element={<ListProduct/>} />
-            <Route path="/create-product" element={<CreateProduct/>} />
-            <Route path="/edit-product/:id" element={<EditProduct/>} />
-            <Route path="/categories/add" element={<TambahCategory />} /> 
-            <Route path="/categories/:id" element={<EditCategory />} />
-            <Route path="/category" element={<ListCategory />} />
-          </Routes>
+            <Routes>
+              <Route path="/" element={<App />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/work" element={<WorkExperience />} />
+              <Route path="/education" element={<Education />} />
+              <Route path="/personal-data" element={<PersonalData />} />
+              <Route path="/personal-data/:id" element={<DetailPersonalData />} />
+              <Route path="/personal-data/tambah" element={<TambahPersonalData />} />
+              <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/list-product" element={<ListProduct />} />
+              <Route path="/create-product" element={<CreateProduct />} />
+              <Route path="/edit-product/:id" element={<EditProduct />} />
+              <Route path="/categories/add" element={<TambahCategory />} />
+              <Route path="/categories/:id" element={<EditCategory />} />
+              <Route path="/category" element={<ListCategory />} />
+            </Routes>
 
-          <Toaster />
-        </ToastProvider>
+            <Toaster />
+          </ToastProvider>
+        </ConfigProvider>
       </AuthProvider>
 
     </BrowserRouter>
