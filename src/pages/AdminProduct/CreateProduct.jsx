@@ -6,6 +6,7 @@ import { useToast } from "../../components/ToastContext";
 function CreateProduct() {
     let navigate = useNavigate();
     let accessToken = localStorage.getItem("tokenSession");
+    let userId = localStorage.getItem("userId");
     const { showToast } = useToast();
 
     // State untuk menyimpan data input
@@ -32,15 +33,15 @@ function CreateProduct() {
 
         try {
             await axios.post(
-                "http://10.50.0.13:3002/products",{
-                    name: formData.name,
-                    price: formData.price,
-                    categoryId: formData.categoryId,
-                    image: formData.image,
-                    description: formData.description,
-                    stock: formData.stock,
-                    userId: 4
-                }
+                "http://10.50.0.13:3002/products", {
+                name: formData.name,
+                price: formData.price,
+                categoryId: formData.categoryId,
+                image: formData.image,
+                description: formData.description,
+                stock: formData.stock,
+                userId: userId
+            }
             );
 
             showToast("Produk berhasil ditambahkan!", "success");
