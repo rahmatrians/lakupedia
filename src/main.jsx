@@ -18,7 +18,7 @@ import axios from 'axios';
 import EditCategory from './pages/admin/EditCategory.jsx';
 
 
-const token = localStorage.getItem("accessToken");
+const token = localStorage.getItem("tokenSession");
 
 if (token) {
   axios.defaults.headers["Authorization"] = `Bearer ${token}`;
