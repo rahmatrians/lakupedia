@@ -21,6 +21,7 @@ import EditProduct from './pages/AdminProduct/EditProduct.jsx';
 import TambahCategory from './pages/admin/TambahCategory.jsx';
 import EditCategory from './pages/admin/EditCategory.jsx';
 import ListCategory from './pages/admin/ListCategory.jsx';
+import ProductDetail from './pages/customer/ProductDetail.jsx';
 import { ConfigProvider, theme } from 'antd';
 
 
@@ -60,6 +61,7 @@ createRoot(document.getElementById('root')).render(
               <Route path="/edit-product/:id" element={<EditProduct />} />
               <Route path="/categories/add" element={<TambahCategory />} />
               <Route path="/categories/:id" element={<EditCategory />} />
+              <Route path="/products/:id" element={<ProductDetail />} /> 
               <Route path="/category" element={<ListCategory />} />
             </Routes>
 
