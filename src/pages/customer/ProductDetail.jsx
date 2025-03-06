@@ -5,10 +5,11 @@ import { useToast } from '../../components/ToastContext'
 
 const ProductDetail = () => {
     let { id } = useParams()
+    id = parseInt(id)
     const [productDetail, setProductDetail] = useState(null)
     const { showToast } = useToast()
     const [quantity, setQuantity] = useState(0)
-    const userId = localStorage.getItem('user')
+    const userId = parseInt(localStorage.getItem('userId'))
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,19 +23,42 @@ const ProductDetail = () => {
         fetchData()
     }, [id])
 
+    const formattedPrice = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR"
+      }).format(productDetail?.price)
+
     const handleAddToCart = async () => {
         try {
-            const response = await axios.post('http://localhost:5000/cart', {
+            if (quantity === 0) {
+              showToast('Please specify quantity', 'error')
+              return
+            }
+            const response = await axios.post('http://10.50.0.13:3002/cart', {
               userId: userId,
-              productId: productId,
+              productId: id,
               quantity: quantity
             })
-            console.log(response.data)
+            
             showToast('Item added to cart 🛒', "success")
           } catch (err) {
             console.error(err)
             showToast('Failed to add item ❌', 'error')
           }
+    }
+
+    // Increase Quantity
+    const increaseQuantity = () => {
+        if (quantity < productDetail.stock){
+            setQuantity(quantity + 1)
+        }
+    }
+
+    // Decrease Quantity (But not below 1)
+    const decreaseQuantity = () => {
+        if (quantity > 0) {
+            setQuantity(quantity - 1)
+        }
     }
 
     return (
@@ -45,8 +69,17 @@ const ProductDetail = () => {
                 <div>
                     <h1>{productDetail.name}</h1>
                     <img src={productDetail.image} width={500}/>
-                    <h2>Price: {productDetail.price}</h2>
+                    <h2>Price: {formattedPrice}</h2>
                     <h3>Stock: {productDetail.stock}</h3>
+                    <div>
+                        <button onClick={decreaseQuantity} style={{ margin: "10px", padding: "5px", cursor: "pointer" }}>
+                        ➖
+                        </button>
+                        <span style={{ fontSize: "20px", margin: "0 20px" }}>{quantity}</span>
+                        <button onClick={increaseQuantity} style={{ margin: "10px", padding: "5px", cursor: "pointer" }}>
+                        ➕
+                        </button>
+                    </div>
                     <p>{productDetail.description}</p>
                 </div>
             )}
