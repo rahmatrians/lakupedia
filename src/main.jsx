@@ -16,6 +16,7 @@ import Login from './pages/Login.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import axios from 'axios';
 import ListProduct from './pages/AdminProduct/ListProduct.jsx';
+import CustomerListProduct from './pages/customer/ListProduct.jsx';
 import CreateProduct from './pages/AdminProduct/CreateProduct.jsx';
 import EditProduct from './pages/AdminProduct/EditProduct.jsx';
 import TambahCategory from './pages/admin/TambahCategory.jsx';
@@ -48,25 +49,26 @@ createRoot(document.getElementById('root')).render(
 
           <ToastProvider>
 
-            <Routes>
-              <Route path="/" element={<App />} />
-              <Route path="/profile" element={<Profile />} />
-              <Route path="/work" element={<WorkExperience />} />
-              <Route path="/education" element={<Education />} />
-              <Route path="/personal-data" element={<PersonalData />} />
-              <Route path="/personal-data/:id" element={<DetailPersonalData />} />
-              <Route path="/personal-data/tambah" element={<TambahPersonalData />} />
-              <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/list-product" element={<ListProduct />} />
-              <Route path="/create-product" element={<CreateProduct />} />
-              <Route path="/edit-product/:id" element={<EditProduct />} />
-              <Route path="/categories/add" element={<TambahCategory />} />
-              <Route path="/categories/:id" element={<EditCategory />} />
-              <Route path="/products/:id" element={<ProductDetail />} /> 
-              <Route path="/category" element={<ListCategory />} />
-              <Route path="/cart" element={userId ? <Cart /> : <Navigate to="/" />}/>
-            </Routes>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="/work" element={<WorkExperience />} />
+            <Route path="/education" element={<Education />} />
+            <Route path="/personal-data" element={<PersonalData />} />
+            <Route path="/personal-data/:id" element={<DetailPersonalData />} />
+            <Route path="/personal-data/tambah" element={<TambahPersonalData />} />
+            <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/list-product" element={<ListProduct/>} />
+            <Route path="/create-product" element={<CreateProduct/>} />
+            <Route path="/edit-product/:id" element={<EditProduct/>} />
+            <Route path="/categories/add" element={<TambahCategory />} /> 
+            <Route path="/categories/:id" element={<EditCategory />} />
+            <Route path="/category" element={<ListCategory />} />
+            <Route path="/customer/product" element={<CustomerListProduct />} />
+            <Route path="/cart" element={userId ? <Cart /> : <Navigate to="/" />}/>
+          </Routes>
+
 
             <Toaster />
           </ToastProvider>
