@@ -19,6 +19,7 @@ function ListProduct() {
             const response = await axios.get("http://10.50.0.13:3002/products", {
                 headers: { Authorization: `Bearer ${accessToken}` },
             });
+            console.log(response.data)
             setPersonalData(response.data);
         } catch (error) {
             console.log(error);
@@ -77,12 +78,12 @@ function ListProduct() {
                                         )}
                                     </td>
                                     <td>{item.name}</td>
-                                    <td>{item.category}</td>
+                                    <td>{item.categoryId}</td>
                                     <td>{item.price}</td>
                                     <td>{item.stock}</td>
                                     <td>
                                         {/* <Link to={`/personal-data/${item.id}`}>🔍 View</Link> |{" "} */}
-                                        <Link to={`/personal-data/edit/${item.id}`}> Edit</Link> 
+                                        <Link to={`/edit-product/${item.id}`}> Edit</Link> 
                                     </td>
                                 </tr>
                             ))}

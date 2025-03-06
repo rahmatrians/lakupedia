@@ -17,6 +17,7 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import axios from 'axios';
 import ListProduct from './pages/AdminProduct/ListProduct.jsx';
 import CreateProduct from './pages/AdminProduct/CreateProduct.jsx';
+import EditProduct from './pages/AdminProduct/EditProduct.jsx';
 
 
 const token = localStorage.getItem("tokenSession");
@@ -47,6 +48,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/login" element={<Login />} />
             <Route path="/list-product" element={<ListProduct/>} />
             <Route path="/create-product" element={<CreateProduct/>} />
+            <Route path="/edit-product/:id" element={<EditProduct/>} />
           </Routes>
 
           <Toaster />
