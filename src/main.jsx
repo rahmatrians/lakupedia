@@ -15,9 +15,11 @@ import EditPersonalData from './pages/EditPersonalData.jsx';
 import Login from './pages/Login.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import axios from 'axios';
+import ListProduct from './pages/AdminProduct/ListProduct.jsx';
+import CreateProduct from './pages/AdminProduct/CreateProduct.jsx';
 
 
-const token = localStorage.getItem("accessToken");
+const token = localStorage.getItem("tokenSession");
 
 if (token) {
   axios.defaults.headers["Authorization"] = `Bearer ${token}`;
@@ -43,6 +45,8 @@ createRoot(document.getElementById('root')).render(
             <Route path="/personal-data/tambah" element={<TambahPersonalData />} />
             <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/list-product" element={<ListProduct/>} />
+            <Route path="/create-product" element={<CreateProduct/>} />
           </Routes>
 
           <Toaster />
