@@ -4,13 +4,13 @@ import { useParams, useNavigate, Link } from 'react-router'
 import { useToast } from '../../components/ToastContext';
 
 const EditCategory = () => {
-    let{ id } = useParams()
+    let { id } = useParams()
     const nav = useNavigate()
     const { showToast } = useToast()
 
     const [formData, setFormData] = useState({
         name: "",
-        userId:4
+        userId: 4
     })
 
     useEffect(() => {
@@ -34,6 +34,7 @@ const EditCategory = () => {
                 userId: formData.userId
             })
             showToast("Berhasil ubah data", "success");
+            nav("/category")
         } catch (error) {
             console.log(error);
             showToast("Gagal ubah data", "error");
@@ -61,7 +62,7 @@ const EditCategory = () => {
                         setFormData({ ...formData, name: event.target.value })
                     }} />
                     <br />
-                    <button type='submit'>Update</button> 
+                    <button type='submit'>Update</button>
                 </form>
             )}
             <Link onClick={() => {
