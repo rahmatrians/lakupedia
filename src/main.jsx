@@ -15,6 +15,8 @@ import EditPersonalData from './pages/EditPersonalData.jsx';
 import Login from './pages/Login.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import axios from 'axios';
+import ListProduct from './pages/AdminProduct/ListProduct.jsx';
+import CreateProduct from './pages/AdminProduct/CreateProduct.jsx';
 import TambahCategory from './pages/admin/TambahCategory.jsx';
 import EditCategory from './pages/admin/EditCategory.jsx';
 import ListCategory from './pages/admin/ListCategory.jsx';
@@ -46,6 +48,8 @@ createRoot(document.getElementById('root')).render(
             <Route path="/personal-data/tambah" element={<TambahPersonalData />} />
             <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/list-product" element={<ListProduct/>} />
+            <Route path="/create-product" element={<CreateProduct/>} />
             <Route path="/categories/add" element={<TambahCategory />} /> 
             <Route path="/categories/:id" element={<EditCategory />} />
             <Route path="/category" element={<ListCategory />} />
