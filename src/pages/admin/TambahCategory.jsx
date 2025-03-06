@@ -12,10 +12,12 @@ const TambahCategory = () => {
     const nav = useNavigate();
     const { showToast } = useToast();
     const [form] = Form.useForm();
+    const userId = parseInt(localStorage.getItem('userId'))
+
 
     const [formData, setFormData] = useState({
         name: "",
-        userId: 4
+        userId: userId
     });
 
     const handleSubmit = async (values) => {
@@ -26,8 +28,7 @@ const TambahCategory = () => {
             });
             showToast("Successfully saved data", "success");
             form.resetFields();
-            // Optionally navigate back to categories list
-            // nav('/categories');
+            nav('/category');
         } catch (error) {
             console.log(error);
             showToast("Failed to save data", "error");
