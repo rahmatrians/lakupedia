@@ -23,9 +23,11 @@ import EditCategory from './pages/admin/EditCategory.jsx';
 import ListCategory from './pages/admin/ListCategory.jsx';
 import ProductDetail from './pages/customer/ProductDetail.jsx';
 import { ConfigProvider, theme } from 'antd';
+import Cart from './pages/customer/Cart.jsx';
 
 
 const token = localStorage.getItem("tokenSession");
+const userId = localStorage.getItem("userId");
 
 if (token) {
   axios.defaults.headers["Authorization"] = `Bearer ${token}`;
@@ -63,6 +65,7 @@ createRoot(document.getElementById('root')).render(
               <Route path="/categories/:id" element={<EditCategory />} />
               <Route path="/products/:id" element={<ProductDetail />} /> 
               <Route path="/category" element={<ListCategory />} />
+              <Route path="/cart" element={userId ? <Cart /> : <Navigate to="/" />}/>
             </Routes>
 
             <Toaster />
