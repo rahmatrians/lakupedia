@@ -36,7 +36,7 @@ function ListCategory() {
 
   return (
     <>
-      <h1>Personal Data Page</h1>
+      <h1>Category</h1>
 
       <br />
 
@@ -84,7 +84,7 @@ function ListCategory() {
             <br />
 
             <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-              <Link to="/personal-data/tambah" className="text-white">Tambah Data</Link>
+              <Link to="/categories/add" className="text-white">Tambah Data</Link>
             </button>
           </>
         )}
