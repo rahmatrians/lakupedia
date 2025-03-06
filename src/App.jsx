@@ -56,7 +56,8 @@ function App() {
         }}
       />
 
-      <img src={logoBjb} />
+      {/* <img src={logoBjb} /> */}
+      <h1>Lakupedia</h1>
 
       {/* <h1>Hello Word!!</h1>
       <h1>Bank BJB</h1>
@@ -115,7 +116,7 @@ function App() {
         }}
         /> */}
 
-        <Input
+        {/* <Input
           value={name.firstName}
           onChange={(event) => setName({ ...name, firstName: event.target.value })}
           placeholder='First Name'
@@ -151,7 +152,7 @@ function App() {
 
         <button>
           <Link to={"/profile"}>Ke halaman Profile</Link>
-        </button>
+        </button> */}
 
 
       </div>
