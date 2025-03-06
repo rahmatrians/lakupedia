@@ -1,35 +1,70 @@
 import React, { useState } from "react";
+import { Form, Input, InputNumber, Button, Typography, Layout, Card, Space, Select, Upload, message, ConfigProvider, theme } from "antd";
+import { PlusOutlined, UploadOutlined, SaveOutlined, ArrowLeftOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { useNavigate } from "react-router"; // Perbaiki import useNavigate
+import { useNavigate } from "react-router";
 import { useToast } from "../../components/ToastContext";
 
+const { Title } = Typography;
+const { Content } = Layout;
+const { TextArea } = Input;
+const { Option } = Select;
+
 function CreateProduct() {
+  let navigate = useNavigate();
+  let accessToken = localStorage.getItem("tokenSession");
+  const { showToast } = useToast();
+  const userId = parseInt(localStorage.getItem('userId'));
+  const [form] = Form.useForm();
+  const [loading, setLoading] = useState(false);
     let navigate = useNavigate();
     let accessToken = localStorage.getItem("tokenSession");
     let userId = localStorage.getItem("userId");
     const { showToast } = useToast();
 
-    // State untuk menyimpan data input
-    const [formData, setFormData] = useState({
-        image: "",
-        name: "",
-        categoryId: "",
-        price: "",
-        stock: "",
-        description: "",
+  // State untuk menyimpan data input
+  const [formData, setFormData] = useState({
+    image: "",
+    name: "",
+    categoryId: "",
+    price: "",
+    stock: "",
+    description: "",
+    userId: userId
+  });
+
+  // Handle perubahan input
+  const handleChange = (field, value) => {
+    setFormData({
+      ...formData,
+      [field]: value,
     });
+  };
 
-    // Handle perubahan input
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    // Handle submit form
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  // Handle form submission
+  const handleSubmit = async (values) => {
+    setLoading(true);
+    try {
+      await axios.post(
+        "http://10.50.0.13:3002/products", {
+          name: values.name,
+          price: values.price,
+          categoryId: values.categoryId,
+          image: values.image,
+          description: values.description,
+          stock: values.stock,
+          userId: userId
+        }
+      );
+      showToast("Produk berhasil ditambahkan!", "success");
+      navigate("/list-product"); // Redirect ke halaman list product
+    } catch (error) {
+      console.log(error);
+      showToast("Gagal menambahkan produk", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
 
         try {
             await axios.post(
@@ -44,42 +79,150 @@ function CreateProduct() {
             }
             );
 
-            showToast("Produk berhasil ditambahkan!", "success");
-            navigate("/list-product"); // Redirect ke halaman list product
-        } catch (error) {
-            console.log(error);
-            showToast("Gagal menambahkan produk", "error");
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm: theme.darkAlgorithm,
+        token: {
+          colorPrimary: '#1890ff',
+          colorBgBase: '#141414',
+          colorTextBase: '#ffffff',
+          colorBgContainer: '#1f1f1f',
+          colorBgElevated: '#272727',
+          colorBorder: '#303030',
+        },
+        components: {
+          Card: {
+            colorBgContainer: '#1f1f1f',
+          },
+          Button: {
+            colorPrimaryHover: '#40a9ff',
+          },
+          Input: {
+            colorBgContainer: '#141414',
+            colorBorder: '#434343',
+          }
         }
-    };
+      }}
+    >
+      <Layout style={{ minHeight: "100vh", background: '#141414' }}>
+        <Content style={{ padding: "24px" }}>
+          <Card 
+            bordered={false} 
+            style={{ borderRadius: "8px", maxWidth: "800px", margin: "0 auto" }}
+          >
+            <Space direction="vertical" size="large" style={{ width: "100%" }}>
+              <Space direction="horizontal" align="center" style={{ justifyContent: "space-between", width: "100%" }}>
+                <Title level={3} style={{ margin: 0, color: '#ffffff' }}>Tambah Produk Baru</Title>
+                <Button 
+                  icon={<ArrowLeftOutlined />}
+                  onClick={() => navigate("/list-product")}
+                >
+                  Kembali
+                </Button>
+              </Space>
+              
+              <Form
+                form={form}
+                layout="vertical"
+                onFinish={handleSubmit}
+                initialValues={formData}
+                style={{ width: "100%" }}
+              >
+                <Form.Item
+                  name="image"
+                  label="Image URL"
+                  rules={[{ required: true, message: 'Please input image URL!' }]}
+                >
+                  <Input 
+                    placeholder="Enter image URL"
+                    prefix={<UploadOutlined />}
+                    onChange={(e) => handleChange('image', e.target.value)}
+                  />
+                </Form.Item>
 
-    return (
-        <div style={{ maxWidth: "600px", margin: "auto", textAlign: "left" }}>
-            <h1>Tambah Produk Baru</h1>
-            <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                <label>Image URL:</label>
-                <input type="text" name="image" value={formData.image} onChange={handleChange} required style={{ width: "100%", padding: "8px" }} />
+                <Form.Item
+                  name="name"
+                  label="Item Name"
+                  rules={[{ required: true, message: 'Please input item name!' }]}
+                >
+                  <Input 
+                    placeholder="Enter item name"
+                    onChange={(e) => handleChange('name', e.target.value)}
+                  />
+                </Form.Item>
 
-                <label>Item Name:</label>
-                <input type="text" name="name" value={formData.name} onChange={handleChange} required style={{ width: "100%", padding: "8px" }} />
+                <Form.Item
+                  name="categoryId"
+                  label="Category"
+                  rules={[{ required: true, message: 'Please select category!' }]}
+                >
+                   <InputNumber
+                    style={{ width: '100%' }}
+                    min={0}
+                    placeholder="Enter category"
+                    onChange={(value) => handleChange('category', value)}
+                  />
+                </Form.Item>
 
-                <label>Category:</label>
-                <input type="text" name="categoryId" value={formData.categoryId} onChange={handleChange} required style={{ width: "100%", padding: "8px" }} />
+                <Form.Item
+                  name="price"
+                  label="Price"
+                  rules={[{ required: true, message: 'Please input price!' }]}
+                >
+                  <InputNumber
+                    style={{ width: '100%' }}
+                    min={0}
+                    placeholder="Enter price"
+                    formatter={value => `Rp ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                    parser={value => value.replace(/\Rp\s?|(,*)/g, '')}
+                    onChange={(value) => handleChange('price', value)}
+                  />
+                </Form.Item>
 
-                <label>Price:</label>
-                <input type="number" name="price" value={formData.price} onChange={handleChange} required style={{ width: "100%", padding: "8px" }} />
+                <Form.Item
+                  name="stock"
+                  label="Stock"
+                  rules={[{ required: true, message: 'Please input stock!' }]}
+                >
+                  <InputNumber
+                    style={{ width: '100%' }}
+                    min={0}
+                    placeholder="Enter stock quantity"
+                    onChange={(value) => handleChange('stock', value)}
+                  />
+                </Form.Item>
 
-                <label>Stock:</label>
-                <input type="number" name="stock" value={formData.stock} onChange={handleChange} required style={{ width: "100%", padding: "8px" }} />
+                <Form.Item
+                  name="description"
+                  label="Description"
+                  rules={[{ required: true, message: 'Please input description!' }]}
+                >
+                  <TextArea
+                    rows={4}
+                    placeholder="Enter product description"
+                    onChange={(e) => handleChange('description', e.target.value)}
+                  />
+                </Form.Item>
 
-                <label>Description:</label>
-                <textarea name="description" value={formData.description} onChange={handleChange} required style={{ width: "100%", padding: "8px", height: "100px" }} />
-
-                <button type="submit" style={{ padding: "10px", backgroundColor: "#007BFF", color: "white", border: "none", cursor: "pointer" }}>
-                    ➕ Tambah Produk
-                </button>
-            </form>
-        </div>
-    );
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    htmlType="submit"
+                    icon={<SaveOutlined />}
+                    loading={loading}
+                    block
+                  >
+                    Tambah Produk
+                  </Button>
+                </Form.Item>
+              </Form>
+            </Space>
+          </Card>
+        </Content>
+      </Layout>
+    </ConfigProvider>
+  );
 }
 
 export default CreateProduct;
