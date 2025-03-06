@@ -16,6 +16,8 @@ import Login from './pages/Login.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import axios from 'axios';
 import TambahCategory from './pages/admin/TambahCategory.jsx';
+import EditCategory from './pages/admin/EditCategory.jsx';
+import ListCategory from './pages/admin/ListCategory.jsx';
 
 
 const token = localStorage.getItem("tokenSession");
@@ -45,6 +47,8 @@ createRoot(document.getElementById('root')).render(
             <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
             <Route path="/login" element={<Login />} />
             <Route path="/categories/add" element={<TambahCategory />} /> 
+            <Route path="/categories/:id" element={<EditCategory />} />
+            <Route path="/category" element={<ListCategory />} />
           </Routes>
 
           <Toaster />
