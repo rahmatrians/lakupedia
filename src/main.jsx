@@ -15,6 +15,7 @@ import EditPersonalData from './pages/EditPersonalData.jsx';
 import Login from './pages/Login.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import axios from 'axios';
+import EditCategory from './pages/admin/EditCategory.jsx';
 
 
 const token = localStorage.getItem("accessToken");
@@ -43,6 +44,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/personal-data/tambah" element={<TambahPersonalData />} />
             <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/categories/:id" element={<EditCategory />} />
           </Routes>
 
           <Toaster />
