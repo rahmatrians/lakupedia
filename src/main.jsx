@@ -17,9 +17,10 @@ import { AuthProvider } from './context/AuthContext.jsx';
 import axios from 'axios';
 import EditCategory from './pages/admin/EditCategory.jsx';
 import ListCategory from './pages/admin/ListCategory.jsx';
+import ProductDetail from './pages/customer/ProductDetail.jsx';
 
 
-const token = localStorage.getItem("accessToken");
+const token = localStorage.getItem("sessionToken");
 
 if (token) {
   axios.defaults.headers["Authorization"] = `Bearer ${token}`;
@@ -46,6 +47,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
             <Route path="/login" element={<Login />} />
             <Route path="/categories/:id" element={<EditCategory />} />
+            <Route path="/products/:id" element={<ProductDetail />} /> 
 
             <Route path="/category" element={<ListCategory />} />
           </Routes>
