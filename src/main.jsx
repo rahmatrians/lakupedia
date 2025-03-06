@@ -16,6 +16,7 @@ import Login from './pages/Login.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import axios from 'axios';
 import ListProduct from './pages/AdminProduct/ListProduct.jsx';
+import CustomerListProduct from './pages/customer/ListProduct.jsx';
 import CreateProduct from './pages/AdminProduct/CreateProduct.jsx';
 import EditProduct from './pages/AdminProduct/EditProduct.jsx';
 import TambahCategory from './pages/admin/TambahCategory.jsx';
@@ -55,6 +56,7 @@ createRoot(document.getElementById('root')).render(
             <Route path="/categories/add" element={<TambahCategory />} /> 
             <Route path="/categories/:id" element={<EditCategory />} />
             <Route path="/category" element={<ListCategory />} />
+            <Route path="/customer/product" element={<CustomerListProduct />} />
           </Routes>
 
           <Toaster />
