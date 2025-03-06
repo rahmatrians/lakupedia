@@ -12,6 +12,7 @@ function ListCategory() {
   const [personalData, setPersonalData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { Title } = Typography;
+  const accessToken = localStorage.getItem("tokenSession");
 
   useEffect(() => {
     fetchData();
@@ -20,14 +21,7 @@ function ListCategory() {
   const fetchData = async () => {
     try {
       const data = await axios.get("http://10.50.0.13:3002/categories",
-        
       );
-      const accessToken = localStorage.getItem("tokenSession");
-      const data = await axios.get("http://10.50.0.13:3002/categories", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`
-        }
-      });
       setPersonalData(data.data);
       setLoading(false);
     } catch (error) {
