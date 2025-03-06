@@ -7,7 +7,7 @@ function Login() {
     let nav = useNavigate();
     const { showToast } = useToast();
     const [formData, xetFormData] = useState({
-        username: "",
+        email: "",
         password: ""
     })
 
@@ -15,8 +15,8 @@ function Login() {
     const handleSubmit = async () => {
         event.preventDefault()
         try {
-            axios.post("http://localhost:3000/auth/login", {
-                username: formData.username,
+            axios.post("http://10.50.0.13:3002/login", {
+                email: formData.email,
                 password: formData.password
             }).then(res => {
                 localStorage.setItem("tokenSession", res.data.accessToken)
@@ -34,9 +34,9 @@ function Login() {
     return (
         <>
             <form onSubmit={handleSubmit}>
-                <label htmlFor='username'>Username: </label>
-                <input type="text" id="username" onChange={(event) => {
-                    xetFormData({ ...formData, username: event.target.value })
+                <label htmlFor='email'>Email: </label>
+                <input type="text" id="email" onChange={(event) => {
+                    xetFormData({ ...formData, email: event.target.value })
                 }} />
                 <br />
                 <label htmlFor='password'>Password: </label>
