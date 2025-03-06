@@ -20,6 +20,7 @@ function Login() {
                 password: formData.password
             }).then(res => {
                 localStorage.setItem("tokenSession", res.data.accessToken)
+                localStorage.setItem("userId", res.data.user.id)
                 showToast("Berhasil login", "success")
                 nav("/")
             })
