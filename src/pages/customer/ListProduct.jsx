@@ -32,12 +32,12 @@ const ListProduct = () => {
     {
       title: "New Season Collection",
       subtitle: "Discover our latest arrivals",
-      image: "https://source.unsplash.com/random/800x600?fashion",
+      image: "https://admin.debzofficial.com/uploads/images_banner/banner1.jpg",
     },
     {
       title: "Summer Sale",
       subtitle: "Up to 50% off selected items",
-      image: "https://source.unsplash.com/random/800x601?shopping",
+      image: "https://admin.debzofficial.com/uploads/images_banner/banner2.jpg",
     }
   ];
 
@@ -94,7 +94,7 @@ const ListProduct = () => {
                     // icon={<ShoppingCartOutlined />}
                     block
                   >
-                    <Link>
+                    <Link to={"/products/" + product.id}>
                       Detail
                     </Link>
                   </Button>
