@@ -25,6 +25,7 @@ import ListCategory from './pages/admin/ListCategory.jsx';
 import ProductDetail from './pages/customer/ProductDetail.jsx';
 import { ConfigProvider, theme } from 'antd';
 import Cart from './pages/customer/Cart.jsx';
+import Register from './pages/Register.jsx';
 
 
 const token = localStorage.getItem("tokenSession");
@@ -59,6 +60,7 @@ createRoot(document.getElementById('root')).render(
               <Route path="/personal-data/tambah" element={<TambahPersonalData />} />
               <Route path="/personal-data/edit/:id" element={<EditPersonalData />} />
               <Route path="/login" element={<Login />} />
+              <Route path='/register' element={<Register />} /> 
               <Route path="/list-product" element={<ListProduct />} />
               <Route path="/create-product" element={<CreateProduct />} />
               <Route path="/edit-product/:id" element={<EditProduct />} />

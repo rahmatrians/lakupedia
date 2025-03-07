@@ -8,7 +8,7 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 const { Title } = Typography;
 const { Content } = Layout;
 
-function Login() {
+const Register = () => {
     const navigate = useNavigate();
     const { showToast } = useToast();
     const [loading, setLoading] = useState(false);
@@ -17,18 +17,19 @@ function Login() {
     const handleSubmit = async (values) => {
         setLoading(true);
         try {
-            const response = await axios.post("http://localhost:3002/login", {
+            const response = await axios.post("http://localhost:3002/register", {
                 email: values.email,
-                password: values.password
+                password: values.password,
+                role: "customer"
             });
 
             localStorage.setItem("tokenSession", response.data.accessToken);
             localStorage.setItem("userId", response.data.user.id);
-            showToast("Berhasil login", "success");
+            showToast("Berhasil register", "success");
             navigate("/");
         } catch (error) {
             console.log(error);
-            showToast("Gagal login", "error");
+            showToast("Gagal register", "error");
         } finally {
             setLoading(false);
         }
@@ -53,12 +54,12 @@ function Login() {
                 >
                     <Space direction="vertical" size="large" style={{ width: '100%' }}>
                         <div style={{ textAlign: 'center' }}>
-                            <Title level={2} style={{ color: '#fff', marginBottom: 24 }}>Login</Title>
+                            <Title level={2} style={{ color: '#fff', marginBottom: 24 }}>Sign Up</Title>
                         </div>
 
                         <Form
                             form={form}
-                            name="login"
+                            name="register"
                             layout="vertical"
                             onFinish={handleSubmit}
                             autoComplete="off"
@@ -93,6 +94,30 @@ function Login() {
                                 />
                             </Form.Item>
 
+                            <Form.Item
+                                name="confirmPassword"
+                                label={<span style={{ color: '#d9d9d9' }}>Confirm Password</span>}
+                                dependencies={['password']} // This makes it watch the password field
+                                rules={[
+                                    { required: true, message: 'Please confirm your password!' },
+                                    ({ getFieldValue }) => ({
+                                    validator(_, value) {
+                                        if (!value || getFieldValue('password') === value) {
+                                        return Promise.resolve()
+                                        }
+                                        return Promise.reject(new Error('Passwords do not match!'))
+                                    },
+                                    }),
+                                ]}
+                                >
+                                <Input.Password
+                                    prefix={<LockOutlined />}
+                                    placeholder="Confirm your password"
+                                    size="large"
+                                    style={{ background: '#303030', border: '1px solid #434343', color: '#fff' }}
+                                />
+                            </Form.Item>
+
                             <Form.Item style={{ marginTop: 24 }}>
                                 <Button
                                     type="primary"
@@ -106,9 +131,9 @@ function Login() {
                                         borderColor: '#1890ff'
                                     }}
                                 >
-                                    Login
+                                    Register
                                 </Button>
-                                <Link to="/register" style={{ color: '#1890ff', textAlign: 'center', display: 'block', marginTop: 8 }}>Don't have an account? Sign Up</Link>
+                                <Link to="/login" style={{ color: '#1890ff', textAlign: 'center', display: 'block', marginTop: 8 }}>Already have an account? Sign In</Link>
                             </Form.Item>
                         </Form>
                     </Space>
@@ -117,5 +142,4 @@ function Login() {
         </Layout>
     );
 }
-
-export default Login;
+export default Register
