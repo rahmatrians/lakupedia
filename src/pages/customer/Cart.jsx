@@ -13,13 +13,13 @@ const Cart = () => {
 
     const getCart = async () => {
         try {
-            const response = await axios.get(`http://10.50.0.13:3002/cart?userId=${userId}`)
+            const response = await axios.get(`http://localhost:3002/cart?userId=${userId}`)
             const cartData = response.data
                 
             // Fetch product details one by one
             const cartWithProducts = await Promise.all(
                 cartData.map(async (item) => {
-                const productResponse = await axios.get(`http://10.50.0.13:3002/products/${item.productId}`)
+                const productResponse = await axios.get(`http://localhost:3002/products/${item.productId}`)
                 return { ...item, product: productResponse.data }
                 })
             )
@@ -31,13 +31,18 @@ const Cart = () => {
         }
     }
 
-    const updateQuantity = async (id, quantity) => {
+    const updateQuantity = async (id, quantity, product) => {
+        console.log(product)
         if (quantity <= 0) {
             deleteItem(id)
             return
         }
+        if (quantity > product.stock) {
+            alert(`Cannot exceed available stock (${product.stock})`)
+            return
+          }
         try {
-            await axios.patch(`http://10.50.0.13:3002/cart/${id}`, { quantity })
+            await axios.patch(`http://localhost:3002/cart/${id}`, { quantity })
             getCart()
         } catch (err) {
             console.error(err)
@@ -48,7 +53,7 @@ const Cart = () => {
     const deleteItem = async (id) => {
         if (!window.confirm("Apakah Anda yakin ingin menghapus data ini?")) return;
         try {
-            await axios.delete(`http://10.50.0.13:3002/cart/${id}`)
+            await axios.delete(`http://localhost:3002/cart/${id}`)
             showToast("Berhasil hapus barang", "success");
             getCart()
         } catch (error) {
@@ -67,9 +72,9 @@ const Cart = () => {
             <div key={index} style={{ display: "flex", gap: "20px", alignItems: "center", marginBottom: "20px" }}>
                 <img src={item.product.image} width="100px" alt={item.product.name} />
                 <h3>{item.product.name}</h3>
-                <button onClick={() => updateQuantity(item.id, item.quantity - 1)}>-</button>
+                <button onClick={() => updateQuantity(item.id, item.quantity - 1, item.product)}>-</button>
                 <span>{item.quantity}</span>
-                <button onClick={() => updateQuantity(item.id, item.quantity + 1)}>+</button>
+                <button onClick={() => updateQuantity(item.id, item.quantity + 1, item.product)}>+</button>
                 <button style={{ backgroundColor: "red", color: "white" }} onClick={() => deleteItem(item.id)}>Delete 🗑️</button>
             </div>
             ))
