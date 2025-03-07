@@ -42,7 +42,7 @@ function ListCategory() {
       dataIndex: 'name',
       key: 'name',
       render: (text, record) => (
-        <Link to={`/categories/${record.id}`} style={{ color: '#6366F1', textDecoration: 'none' }}>
+        <Link to={`/categories/${record.id}`} style={{ color: '#FFFFFF', textDecoration: 'none' }}>
           {text}
         </Link>
       ),
@@ -75,7 +75,7 @@ function ListCategory() {
 
       <Breadcrumb style={{ margin: '8px 0 24px' }}>
         <Breadcrumb.Item>
-          <Link to="/" style={{ color: '#6366F1' }}>CMS</Link>
+          <Link to="/" style={{ color: '#FFFFFF' }}>CMS</Link>
         </Breadcrumb.Item>
         <Breadcrumb.Item style={{ color: 'rgba(255, 255, 255, 0.65)' }}>Category</Breadcrumb.Item>
       </Breadcrumb>
@@ -88,7 +88,7 @@ function ListCategory() {
             <Button
               type="primary"
               icon={<PlusOutlined />}
-              style={{ backgroundColor: '#6366F1' }}
+              style={{ backgroundColor: '#3B82F6' }}
               onClick={() => nav('/categories/add')}
             >
               Add Category
@@ -125,7 +125,7 @@ function ListCategory() {
       theme={{
         algorithm: theme.darkAlgorithm,
         token: {
-          colorPrimary: '#6366F1',
+          colorPrimary: '#FFFFFF',
           borderRadius: 8,
           colorBgContainer: '#1f1f1f',
           colorBgElevated: '#1f1f1f',
@@ -139,7 +139,7 @@ function ListCategory() {
             rowHoverBg: '#303030',
           },
           Button: {
-            colorPrimary: '#6366F1',
+            colorPrimary: '#FFFFFF',
             colorPrimaryHover: '#4F46E5',
           },
           Input: {
