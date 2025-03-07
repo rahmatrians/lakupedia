@@ -29,14 +29,13 @@ const { Title, Paragraph, Text } = Typography;
 const { defaultAlgorithm } = theme;
 
 const ProductDetail = () => {
-    let { id } = useParams()
-    id = parseInt(id)
-    const [productDetail, setProductDetail] = useState(null)
-    const [loading, setLoading] = useState(true);
-    const { showToast } = useToast()
-    const [quantity, setQuantity] = useState(0)
-    const userId = parseInt(localStorage.getItem('userId'))
-    const [ cart, setCart ] = useState([])
+  let { id } = useParams();
+  id = parseInt(id);
+  const [productDetail, setProductDetail] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const { showToast } = useToast();
+  const [quantity, setQuantity] = useState(0);
+  const userId = parseInt(localStorage.getItem('userId'));
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,51 +57,24 @@ const ProductDetail = () => {
     ? new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR"
-    }).format(productDetail?.price)
+      }).format(productDetail.price)
+    : '';
 
-    const getCart = async () => {
-        try {
-            const response = await axios.get(`http://10.50.0.13:3002/cart?userId=${userId}`)
-            const cartData = response.data
-        
-            const cartWithProducts = await Promise.all(
-                cartData.map(async (item) => {
-                const productResponse = await axios.get(`http://10.50.0.13:3002/products/${item.productId}`)
-                return { ...item, product: productResponse.data }
-                })
-            )
-            setCart(cartWithProducts)
-        } catch (err) {
-            console.error(err)
-            alert("Failed to load cart 😢")
-        }
+  const handleAddToCart = async () => {
+    try {
+      if (quantity === 0) {
+        showToast('Please specify quantity', 'error');
+        return;
       }
-
-    const handleAddToCart = async () => {
-        try {
-            getCart()
-            const existingItem = cart.find(item => item.productId == id && item.userId == userId)
-            if (quantity === 0) {
-                showToast('Please specify quantity', 'error')
-                return
-            }
-            if (existingItem) {
-                await axios.patch(`http://10.50.0.13:3002/cart/${existingItem.id}`, { quantity: existingItem.quantity + quantity })
-            }
-            else{
-                await axios.post('http://10.50.0.13:3002/cart', {
-                  userId: userId,
-                  productId: id,
-                  quantity: quantity
-                })
-            }
-            
-
-            showToast('Item added to cart 🛒', "success")
-        } catch (err) {
-            console.error(err)
-            showToast('Failed to add item ❌', 'error')
-        }
+      await axios.post('http://localhost:3002/cart', {
+        userId: userId,
+        productId: id,
+        quantity: quantity
+      });
+      showToast('Item added to cart 🛒', "success");
+    } catch (err) {
+      console.error(err);
+      showToast('Failed to add item ❌', 'error');
     }
   };
 
@@ -221,8 +193,7 @@ const ProductDetail = () => {
                 
                 <Descriptions column={1} size="small">
                   <Descriptions.Item label="Availability" labelStyle={{ color: '#333333' }}>
-                    <Text strong style={{ color: '#333333' }}>{`${productDetail.stock} units available`}</Text>
-
+                    <Text strong style={{ color: '#333333' }}>{productDetail.stock}</Text> units available
                   </Descriptions.Item>
                   {productDetail.categoryId && (
                     <Descriptions.Item label="Category" labelStyle={{ color: '#333333' }}>
