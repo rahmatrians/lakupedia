@@ -33,7 +33,7 @@ function CreateProduct() {
 
         try {
             await axios.post(
-                "http://10.100.15.186:3002/products", {
+                "http://localhost:3002/products", {
                 name: formData.name,
                 price: formData.price,
                 categoryId: formData.categoryId,

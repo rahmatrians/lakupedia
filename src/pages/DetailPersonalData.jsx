@@ -10,7 +10,7 @@ function DetailPersonalData() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await axios.get("http://10.100.15.186:3000/personaldata/" + id);
+                const data = await axios.get("http://localhost:3000/personaldata/" + id);
                 console.log(data);
                 setDetailPersonalData(data.data);
             } catch (error) {
