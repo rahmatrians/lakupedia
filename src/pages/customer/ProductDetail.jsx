@@ -14,7 +14,7 @@ const ProductDetail = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await axios.get("http://10.50.0.13:3002/products/" + id);
+                const data = await axios.get("http://localhost:3002/products/" + id);
                 setProductDetail(data.data);
             } catch (error) {
                 console.log(error);
@@ -26,30 +26,30 @@ const ProductDetail = () => {
     const formattedPrice = new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR"
-      }).format(productDetail?.price)
+    }).format(productDetail?.price)
 
     const handleAddToCart = async () => {
         try {
             if (quantity === 0) {
-              showToast('Please specify quantity', 'error')
-              return
+                showToast('Please specify quantity', 'error')
+                return
             }
-            const response = await axios.post('http://10.50.0.13:3002/cart', {
-              userId: userId,
-              productId: id,
-              quantity: quantity
+            const response = await axios.post('http://localhost:3002/cart', {
+                userId: userId,
+                productId: id,
+                quantity: quantity
             })
-            
+
             showToast('Item added to cart 🛒', "success")
-          } catch (err) {
+        } catch (err) {
             console.error(err)
             showToast('Failed to add item ❌', 'error')
-          }
+        }
     }
 
     // Increase Quantity
     const increaseQuantity = () => {
-        if (quantity < productDetail.stock){
+        if (quantity < productDetail.stock) {
             setQuantity(quantity + 1)
         }
     }
@@ -68,22 +68,22 @@ const ProductDetail = () => {
             ) : (
                 <div>
                     <h1>{productDetail.name}</h1>
-                    <img src={productDetail.image} width={500}/>
+                    <img src={productDetail.image} width={500} />
                     <h2>Price: {formattedPrice}</h2>
                     <h3>Stock: {productDetail.stock}</h3>
                     <div>
                         <button onClick={decreaseQuantity} style={{ margin: "10px", padding: "5px", cursor: "pointer" }}>
-                        ➖
+                            ➖
                         </button>
                         <span style={{ fontSize: "20px", margin: "0 20px" }}>{quantity}</span>
                         <button onClick={increaseQuantity} style={{ margin: "10px", padding: "5px", cursor: "pointer" }}>
-                        ➕
+                            ➕
                         </button>
                     </div>
                     <p>{productDetail.description}</p>
                 </div>
             )}
-            <br/>
+            <br />
             <button onClick={(handleAddToCart)}>Add to Cart</button>
         </div>
     )

@@ -15,8 +15,8 @@ const ListProduct = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const productsResponse = await axios.get("http://10.50.0.13:3002/products");
-        const categoriesResponse = await axios.get("http://10.50.0.13:3002/categories");
+        const productsResponse = await axios.get("http://localhost:3002/products");
+        const categoriesResponse = await axios.get("http://localhost:3002/categories");
 
         setFeaturedProducts(productsResponse.data);
         setCategories(categoriesResponse.data);

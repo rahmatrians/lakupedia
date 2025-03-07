@@ -16,7 +16,7 @@ function EditProduct() {
   const { showToast } = useToast();
   const userId = parseInt(localStorage.getItem('userId'));
   const [form] = Form.useForm();
-  
+
   const [formData, setFormData] = useState({
     image: "",
     name: "",
@@ -31,17 +31,17 @@ function EditProduct() {
   const [submitting, setSubmitting] = useState(false);
 
   // Sample categories - replace with your actual categories
-//   const categories = [
-//     { id: "1", name: "Electronics" },
-//     { id: "2", name: "Clothing" },
-//     { id: "3", name: "Home" },
-//     { id: "4", name: "Books" },
-//   ];
+  //   const categories = [
+  //     { id: "1", name: "Electronics" },
+  //     { id: "2", name: "Clothing" },
+  //     { id: "3", name: "Home" },
+  //     { id: "4", name: "Books" },
+  //   ];
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://10.50.0.13:3002/products/${id}`);
+        const response = await axios.get(`http://localhost:3002/products/${id}`);
         setFormData(response.data);
         form.setFieldsValue(response.data);
         setLoading(false);
@@ -65,7 +65,7 @@ function EditProduct() {
     setSubmitting(true);
     values["userId"] = userId
     try {
-      await axios.put(`http://10.50.0.13:3002/products/${id}`, values);
+      await axios.put(`http://localhost:3002/products/${id}`, values);
       showToast("Berhasil mengupdate produk!", "success");
       navigate("/list-product");
     } catch (error) {
@@ -104,21 +104,21 @@ function EditProduct() {
     >
       <Layout style={{ minHeight: "100vh", background: '#141414' }}>
         <Content style={{ padding: "24px" }}>
-          <Card 
-            bordered={false} 
+          <Card
+            bordered={false}
             style={{ borderRadius: "8px", maxWidth: "800px", margin: "0 auto" }}
           >
             <Space direction="vertical" size="large" style={{ width: "100%" }}>
               <Space direction="horizontal" align="center" style={{ justifyContent: "space-between", width: "100%" }}>
                 <Title level={3} style={{ margin: 0, color: '#ffffff' }}>Edit Produk</Title>
-                <Button 
+                <Button
                   icon={<ArrowLeftOutlined />}
                   onClick={() => navigate("/list-product")}
                 >
                   Kembali
                 </Button>
               </Space>
-              
+
               {loading ? (
                 <div style={{ textAlign: 'center', padding: '50px' }}>
                   <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
@@ -137,7 +137,7 @@ function EditProduct() {
                     label="Image URL"
                     rules={[{ required: false, message: 'Please input image URL!' }]}
                   >
-                    <Input 
+                    <Input
                       placeholder="Masukkan URL gambar"
                       onChange={(e) => handleChange('image', e.target.value)}
                     />
@@ -148,7 +148,7 @@ function EditProduct() {
                     label="Item Name"
                     rules={[{ required: true, message: 'Please input item name!' }]}
                   >
-                    <Input 
+                    <Input
                       placeholder="Enter item name"
                       onChange={(e) => handleChange('name', e.target.value)}
                     />

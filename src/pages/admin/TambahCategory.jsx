@@ -22,7 +22,7 @@ const TambahCategory = () => {
 
     const handleSubmit = async (values) => {
         try {
-            await axios.post("http://10.50.0.13:3002/categories", {
+            await axios.post("http://localhost:3002/categories", {
                 name: values.name,
                 userId: formData.userId
             });

@@ -23,7 +23,7 @@ function ListProduct() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://10.50.0.13:3002/products", {
+      const response = await axios.get("http://localhost:3002/products", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       console.log(response.data);
@@ -38,7 +38,7 @@ function ListProduct() {
 
   const deletePersonalData = async (id) => {
     try {
-      await axios.delete(`http://10.50.0.13:3002/products/${id}`);
+      await axios.delete(`http://localhost:3002/products/${id}`);
       fetchData();
       showToast("Berhasil hapus data", "success");
     } catch (error) {
@@ -60,10 +60,10 @@ function ListProduct() {
       key: "image",
       render: (image, record) => (
         image ? (
-          <Image 
-            src={image} 
-            alt={record.name} 
-            width={50} 
+          <Image
+            src={image}
+            alt={record.name}
+            width={50}
             height={50}
             style={{ objectFit: "cover" }}
             preview={true}
@@ -112,8 +112,8 @@ function ListProduct() {
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <Button 
-            type="primary" 
+          <Button
+            type="primary"
             icon={<EditOutlined />}
             size="small"
           >
@@ -125,9 +125,9 @@ function ListProduct() {
             okText="Ya"
             cancelText="Tidak"
           >
-            <Button 
-              type="primary" 
-              danger 
+            <Button
+              type="primary"
+              danger
               icon={<DeleteOutlined />}
               size="small"
             >
@@ -167,30 +167,30 @@ function ListProduct() {
     >
       <Layout style={{ minHeight: "100vh", background: '#141414' }}>
         <Content style={{ padding: "24px" }}>
-          <Card 
-            bordered={false} 
+          <Card
+            bordered={false}
             style={{ borderRadius: "8px", marginBottom: "16px" }}
           >
             <Space direction="vertical" size="large" style={{ width: "100%" }}>
               <Space direction="horizontal" align="center" style={{ justifyContent: "space-between", width: "100%" }}>
                 <Title level={3} style={{ margin: 0, color: '#ffffff' }}>List Product</Title>
-                <Button 
-                  type="primary" 
+                <Button
+                  type="primary"
                   icon={<PlusOutlined />}
                 >
                   <Link to="/create-product" style={{ color: 'white' }}>Add New Item</Link>
                 </Button>
               </Space>
-              
+
               {loading ? (
                 <div style={{ textAlign: 'center', padding: '50px' }}>
                   <Spin size="large" />
                   <p style={{ marginTop: '16px', color: '#ffffff' }}>Data sedang dimuat...</p>
                 </div>
               ) : (
-                <Table 
-                  columns={columns} 
-                  dataSource={personalData} 
+                <Table
+                  columns={columns}
+                  dataSource={personalData}
                   rowKey="id"
                   pagination={{
                     defaultPageSize: 10,

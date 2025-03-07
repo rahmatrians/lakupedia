@@ -12,7 +12,9 @@ export const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
-        if (path.pathname != "/login" && !isAuthenticated) {
+        if (path.pathname == "/") {
+            nav(path.pathname)
+        } else if (path.pathname != "/login" && !isAuthenticated) {
             nav('/login')
         }
     }, [path])

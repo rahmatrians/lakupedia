@@ -20,7 +20,7 @@ function ListCategory() {
 
   const fetchData = async () => {
     try {
-      const data = await axios.get("http://10.50.0.13:3002/categories",
+      const data = await axios.get("http://localhost:3002/categories",
       );
       setPersonalData(data.data);
       setLoading(false);

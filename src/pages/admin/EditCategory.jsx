@@ -16,7 +16,7 @@ const EditCategory = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await axios.get("http://10.50.0.13:3002/categories/" + id);
+                const data = await axios.get("http://localhost:3002/categories/" + id);
                 console.log(data);
                 setFormData(data.data);
             } catch (error) {
@@ -29,7 +29,7 @@ const EditCategory = () => {
     const handleSubmit = (event) => {
         event.preventDefault()
         try {
-            axios.put("http://10.50.0.13:3002/categories/" + id, {
+            axios.put("http://localhost:3002/categories/" + id, {
                 name: formData.name,
                 userId: formData.userId
             })
@@ -43,7 +43,7 @@ const EditCategory = () => {
 
     const deleteCategory = (id) => {
         try {
-            axios.delete("http://10.50.0.13:3002/categories/" + id)
+            axios.delete("http://localhost:3002/categories/" + id)
             showToast("Berhasil hapus data", "success");
 
         } catch (error) {
