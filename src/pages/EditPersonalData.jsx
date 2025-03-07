@@ -18,7 +18,7 @@ function EditPersonalData() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await axios.get("http://localhost:3000/personaldata/" + id);
+                const data = await axios.get("http://10.100.15.186:3000/personaldata/" + id);
                 console.log(data);
                 xetFormData(data.data);
             } catch (error) {
@@ -32,7 +32,7 @@ function EditPersonalData() {
     const handleSubmit = (event) => {
         event.preventDefault()
         try {
-            axios.put("http://localhost:3000/personaldata/" + id, {
+            axios.put("http://10.100.15.186:3000/personaldata/" + id, {
                 name: formData.name,
                 email: formData.email
             })

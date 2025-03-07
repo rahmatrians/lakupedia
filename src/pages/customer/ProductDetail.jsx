@@ -15,7 +15,7 @@ const ProductDetail = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await axios.get("http://10.50.0.13:3002/products/" + id);
+                const data = await axios.get("http://10.100.15.186:3002/products/" + id);
                 setProductDetail(data.data);
             } catch (error) {
                 console.log(error);
@@ -27,7 +27,7 @@ const ProductDetail = () => {
     const formattedPrice = new Intl.NumberFormat("id-ID", {
         style: "currency",
         currency: "IDR"
-      }).format(productDetail?.price)
+    }).format(productDetail?.price)
 
       const getCart = async () => {
         try {
@@ -52,8 +52,8 @@ const ProductDetail = () => {
             getCart()
             const existingItem = cart.find(item => item.productId == id && item.userId == userId)
             if (quantity === 0) {
-              showToast('Please specify quantity', 'error')
-              return
+                showToast('Please specify quantity', 'error')
+                return
             }
             if (existingItem) {
                 await axios.patch(`http://10.50.0.13:3002/cart/${existingItem.id}`, { quantity: existingItem.quantity + quantity })
@@ -75,7 +75,7 @@ const ProductDetail = () => {
 
     // Increase Quantity
     const increaseQuantity = () => {
-        if (quantity < productDetail.stock){
+        if (quantity < productDetail.stock) {
             setQuantity(quantity + 1)
         }
     }
@@ -94,22 +94,22 @@ const ProductDetail = () => {
             ) : (
                 <div>
                     <h1>{productDetail.name}</h1>
-                    <img src={productDetail.image} width={500}/>
+                    <img src={productDetail.image} width={500} />
                     <h2>Price: {formattedPrice}</h2>
                     <h3>Stock: {productDetail.stock}</h3>
                     <div>
                         <button onClick={decreaseQuantity} style={{ margin: "10px", padding: "5px", cursor: "pointer" }}>
-                        ➖
+                            ➖
                         </button>
                         <span style={{ fontSize: "20px", margin: "0 20px" }}>{quantity}</span>
                         <button onClick={increaseQuantity} style={{ margin: "10px", padding: "5px", cursor: "pointer" }}>
-                        ➕
+                            ➕
                         </button>
                     </div>
                     <p>{productDetail.description}</p>
                 </div>
             )}
-            <br/>
+            <br />
             <button onClick={(handleAddToCart)}>Add to Cart</button>
         </div>
     )

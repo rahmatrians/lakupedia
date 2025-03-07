@@ -16,7 +16,7 @@ function AddProduct() {
     const handleSubmit = () => {
         event.preventDefault()
         try {
-            axios.post("http://localhost:3000/personaldata", {
+            axios.post("http://10.100.15.186:3000/personaldata", {
                 name: formData.name,
                 email: formData.email
             })

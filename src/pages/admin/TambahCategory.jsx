@@ -12,22 +12,23 @@ const TambahCategory = () => {
     const nav = useNavigate();
     const { showToast } = useToast();
     const [form] = Form.useForm();
+    const userId = parseInt(localStorage.getItem('userId'))
+
 
     const [formData, setFormData] = useState({
         name: "",
-        userId: 4
+        userId: userId
     });
 
     const handleSubmit = async (values) => {
         try {
-            await axios.post("http://10.50.0.13:3002/categories", {
+            await axios.post("http://10.100.15.186:3002/categories", {
                 name: values.name,
                 userId: formData.userId
             });
             showToast("Successfully saved data", "success");
             form.resetFields();
-            // Optionally navigate back to categories list
-            // nav('/categories');
+            nav('/category');
         } catch (error) {
             console.log(error);
             showToast("Failed to save data", "error");

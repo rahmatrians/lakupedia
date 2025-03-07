@@ -19,7 +19,7 @@ function PersonalData() {
 
     const fetchData = async () => {
         try {
-            const data = await axios.get("http://localhost:3000/personaldata",
+            const data = await axios.get("http://10.100.15.186:3000/personaldata",
                 {
                     headers: {
                         Authorization: `Bearer ${accessToken}`
@@ -34,7 +34,7 @@ function PersonalData() {
 
     const deletePersonalData = (id) => {
         try {
-            axios.delete("http://localhost:3000/personaldata/" + id)
+            axios.delete("http://10.100.15.186:3000/personaldata/" + id)
             fetchData()
             showToast("Berhasil hapus data", "success");
         } catch (error) {
