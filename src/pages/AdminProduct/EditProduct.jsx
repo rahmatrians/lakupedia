@@ -41,7 +41,7 @@ function EditProduct() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3002/products/${id}`);
+        const response = await axios.get(`http://10.100.15.186:3002/products/${id}`);
         setFormData(response.data);
         form.setFieldsValue(response.data);
         setLoading(false);
@@ -65,7 +65,7 @@ function EditProduct() {
     setSubmitting(true);
     values["userId"] = userId
     try {
-      await axios.put(`http://localhost:3002/products/${id}`, values);
+      await axios.put(`http://10.100.15.186:3002/products/${id}`, values);
       showToast("Berhasil mengupdate produk!", "success");
       navigate("/list-product");
     } catch (error) {

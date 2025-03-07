@@ -13,13 +13,13 @@ const Cart = () => {
 
     const getCart = async () => {
         try {
-            const response = await axios.get(`http://localhost:3002/cart?userId=${userId}`)
+            const response = await axios.get(`http://10.100.15.186:3002/cart?userId=${userId}`)
             const cartData = response.data
 
             // Fetch product details one by one
             const cartWithProducts = await Promise.all(
                 cartData.map(async (item) => {
-                    const productResponse = await axios.get(`http://localhost:3002/products/${item.productId}`)
+                    const productResponse = await axios.get(`http://10.100.15.186:3002/products/${item.productId}`)
                     return { ...item, product: productResponse.data }
                 })
             )
@@ -37,7 +37,7 @@ const Cart = () => {
             return
         }
         try {
-            await axios.patch(`http://localhost:3002/cart/${id}`, { quantity })
+            await axios.patch(`http://10.100.15.186:3002/cart/${id}`, { quantity })
             getCart()
         } catch (err) {
             console.error(err)
@@ -48,7 +48,7 @@ const Cart = () => {
     const deleteItem = async (id) => {
         if (!window.confirm("Apakah Anda yakin ingin menghapus data ini?")) return;
         try {
-            await axios.delete(`http://localhost:3002/cart/${id}`)
+            await axios.delete(`http://10.100.15.186:3002/cart/${id}`)
             showToast("Berhasil hapus barang", "success");
             getCart()
         } catch (error) {

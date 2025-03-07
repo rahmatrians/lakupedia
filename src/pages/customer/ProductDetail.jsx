@@ -14,7 +14,7 @@ const ProductDetail = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const data = await axios.get("http://localhost:3002/products/" + id);
+                const data = await axios.get("http://10.100.15.186:3002/products/" + id);
                 setProductDetail(data.data);
             } catch (error) {
                 console.log(error);
@@ -34,7 +34,7 @@ const ProductDetail = () => {
                 showToast('Please specify quantity', 'error')
                 return
             }
-            const response = await axios.post('http://localhost:3002/cart', {
+            const response = await axios.post('http://10.100.15.186:3002/cart', {
                 userId: userId,
                 productId: id,
                 quantity: quantity

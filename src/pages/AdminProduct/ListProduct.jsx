@@ -17,13 +17,14 @@ function ListProduct() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("check : " + process.env.REACT_APP_API_KEY)
     fetchData();
   }, []);
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3002/products", {
+      const response = await axios.get("http://10.100.15.186:3002/products", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       console.log(response.data);
@@ -38,7 +39,7 @@ function ListProduct() {
 
   const deletePersonalData = async (id) => {
     try {
-      await axios.delete(`http://localhost:3002/products/${id}`);
+      await axios.delete(`http://10.100.15.186:3002/products/${id}`);
       fetchData();
       showToast("Berhasil hapus data", "success");
     } catch (error) {
