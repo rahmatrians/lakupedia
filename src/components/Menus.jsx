@@ -183,7 +183,7 @@ const Menus = () => {
                             </span>
                         </Dropdown>
                     ) : (
-                        <Button>Login</Button>
+                        <Button onClick={() => nav("/login")}>Login</Button>
                     )}
                 </Space>
 
