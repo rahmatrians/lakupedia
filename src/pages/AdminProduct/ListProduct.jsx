@@ -17,14 +17,13 @@ function ListProduct() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("check : " + process.env.REACT_APP_API_KEY)
     fetchData();
   }, []);
 
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://10.100.15.186:3002/products", {
+      const response = await axios.get("http://localhost:3002/products", {
         headers: { Authorization: `Bearer ${accessToken}` },
       });
       console.log(response.data);
@@ -39,7 +38,7 @@ function ListProduct() {
 
   const deletePersonalData = async (id) => {
     try {
-      await axios.delete(`http://10.100.15.186:3002/products/${id}`);
+      await axios.delete(`http://localhost:3002/products/${id}`);
       fetchData();
       showToast("Berhasil hapus data", "success");
     } catch (error) {
@@ -169,7 +168,7 @@ function ListProduct() {
       <Layout style={{ minHeight: "100vh", background: '#141414' }}>
         <Content style={{ padding: "24px" }}>
           <Card
-            bordered={false}
+            // bordered={false}
             style={{ borderRadius: "8px", marginBottom: "16px" }}
           >
             <Space direction="vertical" size="large" style={{ width: "100%" }}>
@@ -199,7 +198,7 @@ function ListProduct() {
                     pageSizeOptions: ['10', '20', '50'],
                     showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`
                   }}
-                  bordered
+                  // bordered
                   size="middle"
                   scroll={{ x: 'max-content' }}
                 />
