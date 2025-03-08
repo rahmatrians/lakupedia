@@ -25,6 +25,7 @@ import ListCategory from './pages/admin/ListCategory.jsx';
 import ProductDetail from './pages/customer/ProductDetail.jsx';
 import { ConfigProvider, theme } from 'antd';
 import Cart from './pages/customer/Cart.jsx';
+import Menus from './components/Menus.jsx';
 
 
 const token = localStorage.getItem("tokenSession");
@@ -32,6 +33,7 @@ const userId = localStorage.getItem("userId");
 
 if (token) {
   axios.defaults.headers["Authorization"] = `Bearer ${token}`;
+
 }
 
 createRoot(document.getElementById('root')).render(
@@ -41,13 +43,15 @@ createRoot(document.getElementById('root')).render(
       <AuthProvider>
 
         <ConfigProvider
-          theme={{
-            algorithm: theme.darkAlgorithm,
-          }}
+        // theme={{
+        //   algorithm: theme.darkAlgorithm,
+        // }}
         >
           {/* <Menus /> */}
 
           <ToastProvider>
+
+            {/* <Menus /> */}
 
             <Routes>
               {/* <Route path="/" element={<App />} /> */}

@@ -17,7 +17,6 @@ function ListProduct() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    console.log("check : " + process.env.REACT_APP_API_KEY)
     fetchData();
   }, []);
 
@@ -118,7 +117,7 @@ function ListProduct() {
             icon={<EditOutlined />}
             size="small"
           >
-            <Link to={`/edit-product/${record.id}`}>Edit</Link>
+            <Link to={`/edit-product/${record.id}`} style={{ color: 'white' }}>Edit</Link>
           </Button>
           <Popconfirm
             title="Apakah Anda yakin ingin menghapus data ini?"
@@ -143,22 +142,22 @@ function ListProduct() {
   return (
     <ConfigProvider
       theme={{
-        algorithm: theme.defaultAlgorithm,
+        algorithm: theme.darkAlgorithm,
         token: {
           colorPrimary: '#1890ff',
-          colorBgBase: '#ffffff',
-          colorTextBase: '#000000',
-          colorBgContainer: '#ffffff',
-          colorBgElevated: '#ffffff',
-          colorBorder: '#f0f0f0',
+          colorBgBase: '#141414',
+          colorTextBase: '#ffffff',
+          colorBgContainer: '#1f1f1f',
+          colorBgElevated: '#272727',
+          colorBorder: '#303030',
         },
         components: {
           Table: {
-            colorBgContainer: '#ffffff',
-            headerBg: '#fafafa',
+            colorBgContainer: '#1f1f1f',
+            headerBg: '#141414',
           },
           Card: {
-            colorBgContainer: '#ffffff',
+            colorBgContainer: '#1f1f1f',
           },
           Button: {
             colorPrimaryHover: '#40a9ff',
@@ -166,27 +165,27 @@ function ListProduct() {
         }
       }}
     >
-      <Layout style={{ minHeight: "100vh", background: '#f5f5f5' }}>
+      <Layout style={{ minHeight: "100vh", background: '#141414' }}>
         <Content style={{ padding: "24px" }}>
           <Card
-            bordered={true}
-            style={{ borderRadius: "8px", marginBottom: "16px", boxShadow: "0 1px 2px rgba(0,0,0,0.03)" }}
+            // bordered={false}
+            style={{ borderRadius: "8px", marginBottom: "16px" }}
           >
             <Space direction="vertical" size="large" style={{ width: "100%" }}>
               <Space direction="horizontal" align="center" style={{ justifyContent: "space-between", width: "100%" }}>
-                <Title level={3} style={{ margin: 0, color: '#262626' }}>List Product</Title>
+                <Title level={3} style={{ margin: 0, color: '#ffffff' }}>List Product</Title>
                 <Button
                   type="primary"
                   icon={<PlusOutlined />}
                 >
-                  <Link to="/create-product">Add New Item</Link>
+                  <Link to="/create-product" style={{ color: 'white' }}>Add New Item</Link>
                 </Button>
               </Space>
 
               {loading ? (
                 <div style={{ textAlign: 'center', padding: '50px' }}>
                   <Spin size="large" />
-                  <p style={{ marginTop: '16px', color: '#595959' }}>Data sedang dimuat...</p>
+                  <p style={{ marginTop: '16px', color: '#ffffff' }}>Data sedang dimuat...</p>
                 </div>
               ) : (
                 <Table
@@ -199,7 +198,7 @@ function ListProduct() {
                     pageSizeOptions: ['10', '20', '50'],
                     showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`
                   }}
-                  bordered
+                  // bordered
                   size="middle"
                   scroll={{ x: 'max-content' }}
                 />

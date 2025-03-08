@@ -3,7 +3,8 @@ import { Carousel, Row, Col, Typography, Card, Button, Input, Divider, ConfigPro
 import { ShoppingCartOutlined, FireFilled, StarFilled } from '@ant-design/icons';
 import axios from 'axios';
 import './ListProduct.css';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
+import Menus from '../../components/Menus';
 
 const { Title, Text } = Typography;
 const { Search } = Input;
@@ -11,6 +12,7 @@ const { Search } = Input;
 const ListProduct = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
   const [categories, setCategories] = useState([]);
+  const nav = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,6 +64,9 @@ const ListProduct = () => {
         }
       }}
     >
+
+      <Menus />
+
       <div className="home-page">
         {/* Hero Section */}
         <section className="hero-section">
@@ -73,7 +78,7 @@ const ListProduct = () => {
                   alt={slide.title}
                   className="hero-image"
                 />
-                <div className="hero-content">
+                <div className="hero-content" style={{ background: 'rgba(255, 255, 255, 0.11)' }}>
                   <Title level={1} className="hero-title">{slide.title}</Title>
                   <Text className="hero-subtitle">{slide.subtitle}</Text>
                   <Button
@@ -111,13 +116,19 @@ const ListProduct = () => {
                   actions={[
                     <Button
                       type="primary"
-                      block
+                      // block
+                      style={{
+                        height: '42px',
+                        margin: '0 20px', minWidth: '90%'
+                      }}
                     >
-                      <Link to={"/products/" + product.id}>
-                        Detail
-                      </Link>
+                      Detail
                     </Button>
                   ]}
+
+                  onClick={() => {
+                    nav(`/products/${product.id}`);
+                  }}
                 >
                   <Card.Meta
                     title={product.name}
@@ -127,7 +138,7 @@ const ListProduct = () => {
                         <div className="product-details">
                           <Text type="secondary">{product.category}</Text>
                           <div className="rating">
-                            <StarFilled className="star-icon" />
+                            {/* <StarFilled className="star-icon" /> */}
                             <Text>{product.rating}</Text>
                           </div>
                         </div>
@@ -135,6 +146,7 @@ const ListProduct = () => {
                     }
                   />
                 </Card>
+
               </Col>
             ))}
           </Row>

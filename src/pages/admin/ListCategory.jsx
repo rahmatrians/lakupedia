@@ -123,7 +123,7 @@ function ListCategory() {
   return (
     <ConfigProvider
       theme={{
-        algorithm: theme.darkAlgorithm,
+        // algorithm: theme.darkAlgorithm,
         token: {
           colorPrimary: '#FFFFFF',
           borderRadius: 8,
