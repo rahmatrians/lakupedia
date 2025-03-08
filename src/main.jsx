@@ -3,15 +3,8 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import App from './App.jsx'
-import Profile from '../src/pages/Profile.jsx';
-import WorkExperience from '../src/pages/WorkExperience.jsx';
-import Education from '../src/pages/Education.jsx';
-import PersonalData from '../src/pages/PersonalData.jsx';
-import DetailPersonalData from '../src/pages/DetailPersonalData.jsx';
-import TambahPersonalData from '../src/pages/TambahPersonalData.jsx';
 import { ToastProvider } from './components/ToastContext.jsx';
 import { Toaster } from 'react-hot-toast';
-import EditPersonalData from './pages/EditPersonalData.jsx';
 import Login from './pages/Login.jsx';
 import { AuthProvider } from './context/AuthContext.jsx';
 import axios from 'axios';
