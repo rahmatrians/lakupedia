@@ -36,7 +36,7 @@ const Register = () => {
     };
 
     return (
-        <Layout className="layout" style={{ minHeight: '100vh', background: '#141414' }}>
+        <Layout className="layout" style={{ minHeight: '100vh', background: '#f0f2f5' }}>
             <Content style={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -47,14 +47,19 @@ const Register = () => {
                     style={{
                         width: 400,
                         maxWidth: '100%',
-                        background: '#1f1f1f',
+                        background: '#ffffff',
                         borderRadius: 8,
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.5)'
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
                     }}
                 >
+
+                    <center>
+                        <h3>🎒 Lakupedia</h3>
+                    </center>
+
                     <Space direction="vertical" size="large" style={{ width: '100%' }}>
                         <div style={{ textAlign: 'center' }}>
-                            <Title level={2} style={{ color: '#fff', marginBottom: 24 }}>Sign Up</Title>
+                            <Title level={2} style={{ color: '#262626', marginBottom: 24 }}>Sign Up</Title>
                         </div>
 
                         <Form
@@ -67,7 +72,7 @@ const Register = () => {
                         >
                             <Form.Item
                                 name="email"
-                                label={<span style={{ color: '#d9d9d9' }}>Email</span>}
+                                label={<span style={{ color: '#262626' }}>Email</span>}
                                 rules={[
                                     { required: true, message: 'Please input your email!' },
                                     { type: 'email', message: 'Please enter a valid email!' }
@@ -77,44 +82,44 @@ const Register = () => {
                                     prefix={<UserOutlined />}
                                     placeholder="Enter your email"
                                     size="large"
-                                    style={{ background: '#303030', border: '1px solid #434343', color: '#fff' }}
+                                    style={{ background: '#ffffff', border: '1px solid #d9d9d9' }}
                                 />
                             </Form.Item>
 
                             <Form.Item
                                 name="password"
-                                label={<span style={{ color: '#d9d9d9' }}>Password</span>}
+                                label={<span style={{ color: '#262626' }}>Password</span>}
                                 rules={[{ required: true, message: 'Please input your password!' }]}
                             >
                                 <Input.Password
                                     prefix={<LockOutlined />}
                                     placeholder="Enter your password"
                                     size="large"
-                                    style={{ background: '#303030', border: '1px solid #434343', color: '#fff' }}
+                                    style={{ background: '#ffffff', border: '1px solid #d9d9d9' }}
                                 />
                             </Form.Item>
 
                             <Form.Item
                                 name="confirmPassword"
-                                label={<span style={{ color: '#d9d9d9' }}>Confirm Password</span>}
-                                dependencies={['password']} // This makes it watch the password field
+                                label={<span style={{ color: '#262626' }}>Confirm Password</span>}
+                                dependencies={['password']}
                                 rules={[
                                     { required: true, message: 'Please confirm your password!' },
                                     ({ getFieldValue }) => ({
-                                    validator(_, value) {
-                                        if (!value || getFieldValue('password') === value) {
-                                        return Promise.resolve()
-                                        }
-                                        return Promise.reject(new Error('Passwords do not match!'))
-                                    },
+                                        validator(_, value) {
+                                            if (!value || getFieldValue('password') === value) {
+                                                return Promise.resolve()
+                                            }
+                                            return Promise.reject(new Error('Passwords do not match!'))
+                                        },
                                     }),
                                 ]}
-                                >
+                            >
                                 <Input.Password
                                     prefix={<LockOutlined />}
                                     placeholder="Confirm your password"
                                     size="large"
-                                    style={{ background: '#303030', border: '1px solid #434343', color: '#fff' }}
+                                    style={{ background: '#ffffff', border: '1px solid #d9d9d9' }}
                                 />
                             </Form.Item>
 
@@ -127,8 +132,8 @@ const Register = () => {
                                     loading={loading}
                                     style={{
                                         height: 45,
-                                        background: '#1890ff',
-                                        borderColor: '#1890ff'
+                                        // background: '#1890ff',
+                                        // borderColor: '#1890ff'
                                     }}
                                 >
                                     Register
@@ -142,4 +147,5 @@ const Register = () => {
         </Layout>
     );
 }
-export default Register
+
+export default Register;

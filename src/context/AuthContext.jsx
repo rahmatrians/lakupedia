@@ -10,11 +10,16 @@ export const AuthProvider = ({ children }) => {
     const nav = useNavigate()
 
 
+    const publicRoutes = [
+        "/login",
+        "/register",
+        "/",
+        "/products"
+    ]
+
 
     useEffect(() => {
-        if (path.pathname == "/") {
-            nav(path.pathname)
-        } else if (path.pathname != "/login" && !isAuthenticated) {
+        if (!publicRoutes.includes(path.pathname) && !isAuthenticated) {
             nav('/login')
         }
     }, [path])
