@@ -17,7 +17,7 @@ function Login() {
     const handleSubmit = async (values) => {
         setLoading(true);
         try {
-            const response = await axios.post("http://10.100.15.186:3002/login", {
+            const response = await axios.post("http://localhost:3002/login", {
                 email: values.email,
                 password: values.password
             });
