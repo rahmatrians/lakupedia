@@ -146,7 +146,7 @@ function ListProduct() {
           <Button
             type="dashed"
             icon={<EditOutlined />}
-            onClick={() => navigate(`/edit-product/${record.id}`)}
+            onClick={() => navigate(`/admin/product/${record.id}`)}
           >
             Edit
           </Button>
@@ -210,7 +210,7 @@ function ListProduct() {
                   type="primary"
                   icon={<PlusOutlined />}
                   style={{ padding: '20px' }}
-                  onClick={() => navigate('/create-product')}
+                  onClick={() => navigate('/admin/product/add')}
                 >
                   Add New Item
                 </Button>

@@ -43,7 +43,7 @@ const Menus = () => {
     // User menu items
     const userMenuItems = [
         // { key: 'profile', label: 'My Profile' },
-        { key: 'orders', label: 'My Orders' },
+        // { key: 'orders', label: 'My Orders' },
         // { key: 'wishlist', label: 'Wishlist' },
         // { key: 'settings', label: 'Settings' },
         { key: 'logout', label: 'Logout', onClick: () => onLogOut() },
@@ -100,13 +100,16 @@ const Menus = () => {
                 />
 
                 {/* Logo */}
-                <div className="logo" style={{
+                <a className="logo" style={{
                     fontSize: '24px',
                     fontWeight: 'bold',
+                    color: 'black',
                     margin: '0 24px 0 0'
-                }}>
+                }}
+                    onClick={() => nav(userRole == 'admin' ? "/admin/product" : "/")}
+                >
                     🎒Lakupedia
-                </div>
+                </a>
 
                 {/* Categories Dropdown - Hide on mobile */}
                 {/* <div style={{
@@ -140,8 +143,8 @@ const Menus = () => {
                             }
                         }}
                         items={[
-                            { key: 'category', label: 'Category', onClick: () => nav("/category"), style: ['/category', '/categories'].includes(path.pathname) && { fontWeight: 'bold', color: '#1890ff', borderBottom: '2px solid #1890ff' } },
-                            { key: 'product', label: 'Product', onClick: () => nav("/list-product"), style: ['/list-product', '/products'].includes(path.pathname) && { fontWeight: 'bold', color: '#1890ff', borderBottom: '2px solid #1890ff' } }
+                            { key: 'category', label: 'Category', onClick: () => nav("/admin/category"), style: ['/admin/category'].includes(path.pathname) && { fontWeight: 'bold', color: '#1890ff', borderBottom: '2px solid #1890ff' } },
+                            { key: 'product', label: 'Product', onClick: () => nav("/admin/product"), style: ['/admin/product'].includes(path.pathname) && { fontWeight: 'bold', color: '#1890ff', borderBottom: '2px solid #1890ff' } }
                         ]}
                     />
 
@@ -222,7 +225,7 @@ const Menus = () => {
                         <Menu.Item key="popular">Popular</Menu.Item> */}
                         <Menu.Divider />
                         {/* <Menu.Item key="profile">My Profile</Menu.Item> */}
-                        <Menu.Item key="orders">My Orders</Menu.Item>
+                        {/* <Menu.Item key="orders">My Orders</Menu.Item> */}
                         {/* <Menu.Item key="wishlist">Wishlist</Menu.Item> */}
                         {/* <Menu.Item key="settings">Settings</Menu.Item> */}
                         <Menu.Item key="logout">Logout</Menu.Item>

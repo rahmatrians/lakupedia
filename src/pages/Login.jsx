@@ -31,7 +31,7 @@ function Login() {
 
             if (response.data.user.role == "admin") {
                 console.log("goks")
-                navigate("/list-product")
+                navigate("/admin/product")
             } else {
                 navigate("/")
             }

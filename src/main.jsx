@@ -49,18 +49,26 @@ createRoot(document.getElementById('root')).render(
             {/* <Menus /> */}
 
             <Routes>
-              {/* <Route path="/" element={<App />} /> */}
+
+
+
+              {/* public routes */}
+              <Route path="/" element={<CustomerListProduct />} />
               <Route path="/login" element={<Login />} />
               <Route path='/register' element={<Register />} />
-              <Route path="/list-product" element={<ListProduct />} />
-              <Route path="/create-product" element={<CreateProduct />} />
-              <Route path="/edit-product/:id" element={<EditProduct />} />
-              <Route path="/categories/add" element={<TambahCategory />} />
-              <Route path="/categories/:id" element={<EditCategory />} />
-              <Route path="/category" element={<ListCategory />} />
-              <Route path="/" element={<CustomerListProduct />} />
               <Route path="/products/:id" element={<ProductDetail />} />
+
+              {/* customer routes */}
               <Route path="/cart" element={userId ? <Cart /> : <Navigate to="/" />} />
+
+              {/* admin routes */}
+              <Route path="/admin/product" element={<ListProduct />} />
+              <Route path="/admin/product/add" element={<CreateProduct />} />
+              <Route path="/admin/product/:id" element={<EditProduct />} />
+              <Route path="/admin/category" element={<ListCategory />} />
+              <Route path="/admin/category/add" element={<TambahCategory />} />
+              <Route path="/admin/category/:id" element={<EditCategory />} />
+
             </Routes>
 
 

@@ -56,7 +56,8 @@ const Cart = () => {
             );
 
             setCart(cartWithProducts);
-            setError(null);
+            // setError(null);
+            setLoading(false);
         } catch (err) {
             console.error(err);
             setError("Failed to load cart");

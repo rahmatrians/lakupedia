@@ -68,7 +68,7 @@ function ListCategory() {
           <Button
             type="dashed"
             icon={<EditOutlined />}
-            onClick={() => navigate(`/categories/${record.id}`)}
+            onClick={() => navigate(`/admin/category/${record.id}`)}
           >
             Edit
           </Button>
@@ -132,7 +132,7 @@ function ListCategory() {
                   type="primary"
                   icon={<PlusOutlined />}
                   style={{ padding: '20px' }}
-                  onClick={() => navigate('/categories/add')}
+                  onClick={() => navigate('/admin/category/add')}
                 >
                   Add New Item
                 </Button>

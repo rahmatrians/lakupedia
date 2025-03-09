@@ -93,7 +93,7 @@ function CreateProduct() {
             );
 
             showToast("Produk berhasil ditambahkan!", "success");
-            navigate("/list-product");
+            navigate("/admin/product");
         } catch (error) {
             console.log(error);
             showToast("Gagal menambahkan produk", "error");
@@ -137,7 +137,7 @@ function CreateProduct() {
 
                         <Button
                             icon={<LeftOutlined />}
-                            onClick={() => navigate("/list-product")}
+                            onClick={() => navigate("/admin/product")}
                         >
                             Back
                         </Button>
