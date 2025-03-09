@@ -27,6 +27,7 @@ const Menus = () => {
     const [mobileMenuVisible, setMobileMenuVisible] = useState(false);
     const nav = useNavigate()
     const token = localStorage.getItem("tokenSession");
+    const userRole = localStorage.getItem("userRole");
 
 
     // Sample categories for dropdown
@@ -124,21 +125,26 @@ const Menus = () => {
                 </div> */}
 
                 {/* Main navigation - Hide on mobile */}
-                {/* <Menu
-                    mode="horizontal"
-                    style={{
-                        flex: 1,
-                        minWidth: 0,
-                        border: 'none',
-                        '@media (maxWidth: 768px)': {
-                            display: 'none',
-                        }
-                    }}
-                >
-                    <Menu.Item key="new">New Arrivals</Menu.Item>
-                    <Menu.Item key="deals">Deals</Menu.Item>
-                    <Menu.Item key="popular">Popular</Menu.Item>
-                </Menu> */}
+
+                {userRole == "admin" && (
+
+                    <Menu
+                        mode="horizontal"
+                        style={{
+                            flex: 1,
+                            minWidth: 0,
+                            border: 'none',
+                            '@media (maxWidth: 768px)': {
+                                display: 'none',
+                            }
+                        }}
+                    >
+                        <Menu.Item key="category" onClick={() => nav("/category")}>Category</Menu.Item>
+                        <Menu.Item key="product" onClick={() => nav("/list-product")}>Product</Menu.Item>
+                    </Menu>
+
+                )}
+
 
                 {/* Search bar */}
                 {/* <Search
@@ -170,11 +176,16 @@ const Menus = () => {
                         <HeartOutlined style={{ fontSize: '24px' }} />
                     </Badge> */}
 
-                    <Link to={"/cart"}>
-                        <Badge count={0}>
-                            <ShoppingCartOutlined style={{ fontSize: '24px', paddingRight: '20px', marginTop: '25px' }} />
-                        </Badge>
-                    </Link>
+                    {userRole == "customer" && (
+
+                        <Link to={"/cart"}>
+                            <Badge count={0}>
+                                <ShoppingCartOutlined style={{ fontSize: '24px', paddingRight: '20px', marginTop: '25px' }} />
+                            </Badge>
+                        </Link>
+
+                    )}
+
 
                     {token ? (
                         <Dropdown menu={userMenu} placement="bottomRight">
