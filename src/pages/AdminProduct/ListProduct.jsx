@@ -142,22 +142,22 @@ function ListProduct() {
   return (
     <ConfigProvider
       theme={{
-        algorithm: theme.darkAlgorithm,
+        algorithm: theme.defaultAlgorithm,
         token: {
           colorPrimary: '#1890ff',
-          colorBgBase: '#141414',
-          colorTextBase: '#ffffff',
-          colorBgContainer: '#1f1f1f',
-          colorBgElevated: '#272727',
-          colorBorder: '#303030',
+          colorBgBase: '#ffffff',
+          colorTextBase: '#000000',
+          colorBgContainer: '#ffffff',
+          colorBgElevated: '#f0f2f5',
+          colorBorder: '#d9d9d9',
         },
         components: {
           Table: {
-            colorBgContainer: '#1f1f1f',
-            headerBg: '#141414',
+            colorBgContainer: '#ffffff',
+            headerBg: '#fafafa',
           },
           Card: {
-            colorBgContainer: '#1f1f1f',
+            colorBgContainer: '#ffffff',
           },
           Button: {
             colorPrimaryHover: '#40a9ff',
@@ -165,15 +165,14 @@ function ListProduct() {
         }
       }}
     >
-      <Layout style={{ minHeight: "100vh", background: '#141414' }}>
+      <Layout style={{ minHeight: "100vh", background: '#f0f2f5' }}>
         <Content style={{ padding: "24px" }}>
           <Card
-            // bordered={false}
             style={{ borderRadius: "8px", marginBottom: "16px" }}
           >
             <Space direction="vertical" size="large" style={{ width: "100%" }}>
               <Space direction="horizontal" align="center" style={{ justifyContent: "space-between", width: "100%" }}>
-                <Title level={3} style={{ margin: 0, color: '#ffffff' }}>List Product</Title>
+                <Title level={3} style={{ margin: 0, color: '#000000' }}>List Product</Title>
                 <Button
                   type="primary"
                   icon={<PlusOutlined />}
@@ -185,7 +184,7 @@ function ListProduct() {
               {loading ? (
                 <div style={{ textAlign: 'center', padding: '50px' }}>
                   <Spin size="large" />
-                  <p style={{ marginTop: '16px', color: '#ffffff' }}>Data sedang dimuat...</p>
+                  <p style={{ marginTop: '16px', color: '#000000' }}>Data sedang dimuat...</p>
                 </div>
               ) : (
                 <Table
@@ -198,7 +197,6 @@ function ListProduct() {
                     pageSizeOptions: ['10', '20', '50'],
                     showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`
                   }}
-                  // bordered
                   size="middle"
                   scroll={{ x: 'max-content' }}
                 />
