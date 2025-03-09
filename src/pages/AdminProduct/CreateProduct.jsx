@@ -92,11 +92,11 @@ function CreateProduct() {
             }
             );
 
-            showToast("Produk berhasil ditambahkan!", "success");
+            showToast("Product saved successfully", "success");
             navigate("/admin/product");
         } catch (error) {
             console.log(error);
-            showToast("Gagal menambahkan produk", "error");
+            showToast("Failed to save product", "error");
         }
     };
 
