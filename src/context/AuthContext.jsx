@@ -34,11 +34,6 @@ export const AuthProvider = ({ children }) => {
 
 
     useEffect(() => {
-        console.log("test1 : ", isAuthenticated)
-        console.log("test2 : ", !adminRoutes.includes(path.pathname))
-        console.log("test3 : ", customerRoutes.includes(path.pathname))
-        console.log("test4 : ", userRole == "admin")
-        console.log("test5 : ", path.pathname)
 
         if (!publicRoutes.includes(path.pathname) && !isAuthenticated) {
             nav('/login')
@@ -50,12 +45,6 @@ export const AuthProvider = ({ children }) => {
             nav("/")
             // } else {
             //     nav("/")
-        }
-
-        if (userRole == "admin") {
-            nav("/list-product")
-        } else {
-            nav("/")
         }
     }, [])
 

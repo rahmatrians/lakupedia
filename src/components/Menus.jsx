@@ -18,7 +18,7 @@ import {
     MenuOutlined,
     DownOutlined
 } from '@ant-design/icons';
-import { Link, useNavigate } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -28,6 +28,7 @@ const Menus = () => {
     const nav = useNavigate()
     const token = localStorage.getItem("tokenSession");
     const userRole = localStorage.getItem("userRole");
+    const path = useLocation()
 
 
     // Sample categories for dropdown
@@ -138,10 +139,11 @@ const Menus = () => {
                                 display: 'none',
                             }
                         }}
-                    >
-                        <Menu.Item key="category" onClick={() => nav("/category")}>Category</Menu.Item>
-                        <Menu.Item key="product" onClick={() => nav("/list-product")}>Product</Menu.Item>
-                    </Menu>
+                        items={[
+                            { key: 'category', label: 'Category', onClick: () => nav("/category"), style: ['/category', '/categories'].includes(path.pathname) && { fontWeight: 'bold', color: '#1890ff', borderBottom: '2px solid #1890ff' } },
+                            { key: 'product', label: 'Product', onClick: () => nav("/list-product"), style: ['/list-product', '/products'].includes(path.pathname) && { fontWeight: 'bold', color: '#1890ff', borderBottom: '2px solid #1890ff' } }
+                        ]}
+                    />
 
                 )}
 

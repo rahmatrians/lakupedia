@@ -1,155 +1,167 @@
-import React, { useEffect, useState } from 'react';
-import { Table, Button, Input, Space, Typography, Breadcrumb, Tag, ConfigProvider, theme } from 'antd';
-import { PlusOutlined, EditOutlined, DownloadOutlined, SearchOutlined } from '@ant-design/icons';
-import Menus from '../../components/Menus';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { Table, Button, Space, Typography, Layout, Card, Image, Tag, Popconfirm, Spin, ConfigProvider, theme } from "antd";
+import { PlusOutlined, EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import Menus from "../../components/Menus";
+import axios from "axios";
 import { Link, useNavigate } from 'react-router';
-import { useToast } from '../../components/ToastContext';
+import { useToast } from "../../components/ToastContext";
+
+const { Title } = Typography;
+const { Content } = Layout;
 
 function ListCategory() {
-  const nav = useNavigate();
+  let navigate = useNavigate();
+  let accessToken = localStorage.getItem("tokenSession");
   const { showToast } = useToast();
   const [personalData, setPersonalData] = useState(null);
   const [loading, setLoading] = useState(true);
-  const { Title } = Typography;
-  const accessToken = localStorage.getItem("tokenSession");
 
   useEffect(() => {
     fetchData();
   }, []);
 
+
   const fetchData = async () => {
+    setLoading(true);
     try {
-      const data = await axios.get("http://localhost:3002/categories",
-      );
-      setPersonalData(data.data);
+      const response = await axios.get("http://localhost:3002/categories", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      setPersonalData(response.data);
       setLoading(false);
     } catch (error) {
-      console.log(error);
       setLoading(false);
+      showToast("Gagal memuat data", "error");
     }
   };
 
-  // Define columns matching your original structure
+  const deletePersonalData = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3002/products/${id}`);
+      fetchData();
+      showToast("Data deleted successfully", "success");
+    } catch (error) {
+      console.log(error);
+      showToast("Failed to delete data", "error");
+    }
+  };
+
   const columns = [
     {
-      title: 'ID',
-      dataIndex: 'id',
-      key: 'id',
+      title: "No",
+      dataIndex: "id",
+      key: "id",
+      sorter: (a, b) => a.id - b.id,
+      render: (text, record, index) => index + 1
     },
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text, record) => (
-        <Link to={`/categories/${record.id}`} style={{ color: '#FFFFFF', textDecoration: 'none' }}>
-          {text}
-        </Link>
-      ),
+      title: "Item Name",
+      dataIndex: "name",
+      key: "name",
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
-      title: 'Actions',
-      key: 'actions',
+      title: "Action",
+      key: "action",
       render: (_, record) => (
         <Space size="middle">
           <Button
-            type="text"
+            type="dashed"
             icon={<EditOutlined />}
-            onClick={() => nav(`/categories/${record.id}`)}
-          />
+            onClick={() => navigate(`/categories/${record.id}`)}
+          >
+            Edit
+          </Button>
+          <Popconfirm
+            title="Are you sure you want to delete this data?"
+            onConfirm={() => deletePersonalData(record.id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button
+              type="primary"
+              danger
+              icon={<DeleteOutlined />}
+            >
+              Delete
+            </Button>
+          </Popconfirm>
         </Space>
       ),
     },
   ];
 
-  // Sample data in case real data is not loaded yet
-  const sampleData = [
-    { id: 1, name: 'Electronics' },
-    { id: 2, name: 'Clothing' },
-    { id: 3, name: 'Books' }
-  ];
-
-  const DarkCategoryList = () => (
-    <div style={{ padding: '20px', background: '#141414', minHeight: '100vh' }}>
-      <Typography.Title level={4} style={{ margin: 0, color: '#fff' }}>Category</Typography.Title>
-
-      <Breadcrumb style={{ margin: '8px 0 24px' }}>
-        <Breadcrumb.Item>
-          <Link to="/" style={{ color: '#FFFFFF' }}>CMS</Link>
-        </Breadcrumb.Item>
-        <Breadcrumb.Item style={{ color: 'rgba(255, 255, 255, 0.65)' }}>Category</Breadcrumb.Item>
-      </Breadcrumb>
-
-      <div style={{ background: '#1f1f1f', padding: '24px', borderRadius: '8px', boxShadow: '0 1px 2px rgba(0,0,0,0.2)' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-          <Typography.Title level={5} style={{ margin: 0, color: '#fff' }}>Daftar Category</Typography.Title>
-
-          <div style={{ display: 'flex', gap: '16px' }}>
-            <Button
-              type="primary"
-              icon={<PlusOutlined />}
-              style={{ backgroundColor: '#3B82F6' }}
-              onClick={() => nav('/categories/add')}
-            >
-              Add Category
-            </Button>
-          </div>
-        </div>
-
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '20px' }}>
-          <Input
-            placeholder="Search"
-            suffix={<SearchOutlined />}
-            style={{ width: '240px', background: '#141414', borderColor: '#303030' }}
-          />
-        </div>
-
-        <Table
-          columns={columns}
-          dataSource={personalData || sampleData}
-          rowKey="id"
-          pagination={{ pageSize: 10 }}
-          bordered={false}
-          loading={loading}
-          style={{
-            borderRadius: '8px',
-            overflow: 'hidden'
-          }}
-        />
-      </div>
-    </div>
-  );
-
   return (
     <ConfigProvider
       theme={{
-        // algorithm: theme.darkAlgorithm,
+        algorithm: theme.defaultAlgorithm,
         token: {
-          colorPrimary: '#FFFFFF',
-          borderRadius: 8,
-          colorBgContainer: '#1f1f1f',
-          colorBgElevated: '#1f1f1f',
-          colorText: 'rgba(255, 255, 255, 0.85)',
-          colorTextSecondary: 'rgba(255, 255, 255, 0.65)',
+          colorPrimary: '#1890ff',
+          colorBgBase: '#ffffff',
+          colorTextBase: '#000000',
+          colorBgContainer: '#ffffff',
+          colorBgElevated: '#f0f2f5',
+          colorBorder: '#d9d9d9',
         },
         components: {
           Table: {
-            colorBgContainer: '#1f1f1f',
-            headerBg: '#141414',
-            rowHoverBg: '#303030',
+            colorBgContainer: '#ffffff',
+            headerBg: '#fafafa',
+          },
+          Card: {
+            colorBgContainer: '#ffffff',
           },
           Button: {
-            colorPrimary: '#FFFFFF',
-            colorPrimaryHover: '#4F46E5',
-          },
-          Input: {
-            colorBgContainer: '#141414',
-            colorBorder: '#303030',
+            colorPrimaryHover: '#40a9ff',
           }
         }
       }}
     >
-      <DarkCategoryList />
+      <Layout style={{ minHeight: "100vh", background: '#f0f2f5' }}>
+
+        <Menus />
+
+        <Content style={{ padding: "24px" }}>
+          <Card
+            style={{ borderRadius: "8px", marginBottom: "16px" }}
+          >
+            <Space direction="vertical" size="large" style={{ width: "100%" }}>
+              <Space direction="horizontal" align="center" style={{ justifyContent: "space-between", width: "100%" }}>
+                <Title level={3} style={{ margin: 0, color: '#000000' }}>List Category</Title>
+                <Button
+                  type="primary"
+                  icon={<PlusOutlined />}
+                  style={{ padding: '20px' }}
+                  onClick={() => navigate('/categories/add')}
+                >
+                  Add New Item
+                </Button>
+              </Space>
+
+              {loading ? (
+                <div style={{ textAlign: 'center', padding: '50px' }}>
+                  <Spin size="large" />
+                  <p style={{ marginTop: '16px', color: '#000000' }}>Loading...</p>
+                </div>
+              ) : (
+                <Table
+                  columns={columns}
+                  dataSource={personalData}
+                  rowKey="id"
+                  pagination={{
+                    defaultPageSize: 10,
+                    showSizeChanger: true,
+                    pageSizeOptions: ['10', '20', '50'],
+                    showTotal: (total, range) => `${range[0]}-${range[1]} of ${total} items`
+                  }}
+                  size="middle"
+                  scroll={{ x: 'max-content' }}
+                />
+              )}
+            </Space>
+          </Card>
+        </Content>
+      </Layout>
     </ConfigProvider>
   );
 }

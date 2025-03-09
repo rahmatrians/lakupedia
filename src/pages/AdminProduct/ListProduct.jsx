@@ -14,6 +14,7 @@ function ListProduct() {
   let accessToken = localStorage.getItem("tokenSession");
   const { showToast } = useToast();
   const [personalData, setPersonalData] = useState(null);
+  const [categories, setCategories] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -23,14 +24,43 @@ function ListProduct() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const response = await axios.get("http://localhost:3002/products", {
+
+      await axios.get("http://localhost:3002/categories", {
         headers: { Authorization: `Bearer ${accessToken}` },
+      }).then(async (categories) => {
+        await axios.get("http://localhost:3002/products", {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }).then(async (products) => {
+          products.data.map((product) => {
+            categories.data.map((category) => {
+              if (product.categoryId == category.id) {
+                product.categoryId = category.name;
+              }
+            })
+          })
+          setPersonalData(products.data);
+        })
       });
-      console.log(response.data);
-      setPersonalData(response.data);
+
+
       setLoading(false);
     } catch (error) {
       console.log(error);
+      setLoading(false);
+      showToast("Gagal memuat data", "error");
+    }
+  };
+
+  const fetchCategoriesData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("http://localhost:3002/categories", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+      console.log("categoriess " + JSON.stringify(response.data))
+      setCategories(response.data);
+      setLoading(false);
+    } catch (error) {
       setLoading(false);
       showToast("Gagal memuat data", "error");
     }
@@ -40,19 +70,20 @@ function ListProduct() {
     try {
       await axios.delete(`http://localhost:3002/products/${id}`);
       fetchData();
-      showToast("Berhasil hapus data", "success");
+      showToast("Data deleted successfully", "success");
     } catch (error) {
       console.log(error);
-      showToast("Gagal hapus data", "error");
+      showToast("Failed to delete data", "error");
     }
   };
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "id",
-      key: "id",
+      title: 'No',
+      dataIndex: 'id',
+      key: 'id',
       sorter: (a, b) => a.id - b.id,
+      render: (text, record, index) => index + 1
     },
     {
       title: "Image",
@@ -113,23 +144,22 @@ function ListProduct() {
       render: (_, record) => (
         <Space size="middle">
           <Button
-            type="primary"
+            type="dashed"
             icon={<EditOutlined />}
-            size="small"
+            onClick={() => navigate(`/edit-product/${record.id}`)}
           >
-            <Link to={`/edit-product/${record.id}`} style={{ color: 'white' }}>Edit</Link>
+            Edit
           </Button>
           <Popconfirm
-            title="Apakah Anda yakin ingin menghapus data ini?"
+            title="Are you sure you want to delete this data?"
             onConfirm={() => deletePersonalData(record.id)}
-            okText="Ya"
-            cancelText="Tidak"
+            okText="Yes"
+            cancelText="No"
           >
             <Button
               type="primary"
               danger
               icon={<DeleteOutlined />}
-              size="small"
             >
               Delete
             </Button>
@@ -166,6 +196,9 @@ function ListProduct() {
       }}
     >
       <Layout style={{ minHeight: "100vh", background: '#f0f2f5' }}>
+
+        <Menus />
+
         <Content style={{ padding: "24px" }}>
           <Card
             style={{ borderRadius: "8px", marginBottom: "16px" }}
@@ -176,15 +209,17 @@ function ListProduct() {
                 <Button
                   type="primary"
                   icon={<PlusOutlined />}
+                  style={{ padding: '20px' }}
+                  onClick={() => navigate('/create-product')}
                 >
-                  <Link to="/create-product" style={{ color: 'white' }}>Add New Item</Link>
+                  Add New Item
                 </Button>
               </Space>
 
               {loading ? (
                 <div style={{ textAlign: 'center', padding: '50px' }}>
                   <Spin size="large" />
-                  <p style={{ marginTop: '16px', color: '#000000' }}>Data sedang dimuat...</p>
+                  <p style={{ marginTop: '16px', color: '#000000' }}>Loading...</p>
                 </div>
               ) : (
                 <Table

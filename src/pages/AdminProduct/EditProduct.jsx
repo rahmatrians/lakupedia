@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Form, Input, InputNumber, Button, Typography, Layout, Card, Space, Select, Spin, ConfigProvider, theme } from "antd";
-import { SaveOutlined, ArrowLeftOutlined, LoadingOutlined } from "@ant-design/icons";
+import { SaveOutlined, ArrowLeftOutlined, LoadingOutlined, LeftOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import { useToast } from "../../components/ToastContext";
+import Menus from "../../components/Menus";
 
 const { Title } = Typography;
 const { Content } = Layout;
@@ -27,10 +28,10 @@ function EditProduct() {
     userId: userId
   });
 
+  const [categories, setCategories] = useState(null);
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
 
-  // Sample category options - same as in CreateProduct
   const categoryOptions = [
     "Electronics",
     "Clothing",
@@ -44,7 +45,10 @@ function EditProduct() {
     "Furniture"
   ];
 
+
+
   useEffect(() => {
+
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:3002/products/${id}`);
@@ -57,8 +61,25 @@ function EditProduct() {
         setLoading(false);
       }
     };
+
+    fetchCategoriesData();
     fetchData();
   }, [id, showToast, form]);
+
+
+  const fetchCategoriesData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("http://localhost:3002/categories");
+      console.log("categoriess " + JSON.stringify(response.data));
+
+      setCategories(response.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      showToast("Gagal memuat data", "error");
+    }
+  };
 
   const handleChange = (field, value) => {
     setFormData({
@@ -84,52 +105,56 @@ function EditProduct() {
 
   return (
     <ConfigProvider
-    theme={{
-      algorithm: theme.defaultAlgorithm,
-      token: {
+      theme={{
+        algorithm: theme.defaultAlgorithm,
+        token: {
           colorPrimary: '#1890ff',
           colorBgBase: '#ffffff',
           colorTextBase: '#000000',
           borderRadius: 8,
-      },
-      components: {
+        },
+        components: {
           Card: {
-              colorBgContainer: '#ffffff',
+            colorBgContainer: '#ffffff',
           },
           Button: {
-              colorPrimaryHover: '#1890ff', // Same as primary to eliminate hover effect
-          }}
+            colorPrimaryHover: '#1890ff',
+          }
+        }
       }}
     >
+
+      <Menus />
+
       <Layout style={{ minHeight: "100vh", background: '#f0f2f5' }}>
         <Content style={{ padding: "50px 0" }}>
           <Card
-            style={{ 
-              maxWidth: 600, 
-              margin: "0 auto", 
+            style={{
+              maxWidth: 600,
+              margin: "0 auto",
               borderRadius: "16px",
               boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.05)",
+              padding: "32px"
             }}
-            bodyStyle={{ padding: "32px" }}
           >
+
+            <Button
+              icon={<LeftOutlined />}
+              onClick={() => navigate("/list-product")}
+            >
+              Back
+            </Button>
+
             <Space direction="vertical" size="large" style={{ width: "100%" }}>
-              {/* <Space direction="horizontal" align="center" style={{ justifyContent: "space-between", width: "100%" }}>
-                
-                {/* <Button
-                  icon={<ArrowLeftOutlined />}
-                  onClick={() => navigate("/list-product")}
-                >
-                  Kembali
-                </Button> */}
-              {/* </Space> */} 
+
               <div>
-                  <Title level={3} style={{ textAlign: "center" }}>Edit Product</Title>
+                <Title level={3} style={{ textAlign: "center" }}>Edit Product</Title>
               </div>
 
               {loading ? (
                 <div style={{ textAlign: 'center', padding: '50px' }}>
                   <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
-                  <p style={{ marginTop: '16px' }}>Data sedang dimuat...</p>
+                  <p style={{ marginTop: '16px' }}>Loading...</p>
                 </div>
               ) : (
                 <Form
@@ -171,9 +196,9 @@ function EditProduct() {
                       placeholder="Select a category"
                       onChange={(value) => handleChange('categoryId', value)}
                     >
-                      {categoryOptions.map(category => (
-                        <Option key={category} value={category}>
-                          {category}
+                      {categories?.map(category => (
+                        <Option key={category.id} value={category.id}>
+                          {category.name}
                         </Option>
                       ))}
                     </Select>
@@ -219,14 +244,14 @@ function EditProduct() {
                   </Form.Item>
 
                   <Form.Item>
-                    <Button 
-                      type="primary" 
-                      htmlType="submit" 
+                    <Button
+                      type="primary"
+                      htmlType="submit"
                       icon={<SaveOutlined />}
                       loading={submitting}
-                      style={{ width: '100%', height: '40px', borderRadius: '20px' }}
+                      style={{ width: '100%', height: '48px' }}
                     >
-                      Simpan Perubahan
+                      Save Product
                     </Button>
                   </Form.Item>
                 </Form>

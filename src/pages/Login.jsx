@@ -28,7 +28,13 @@ function Login() {
             localStorage.setItem("userId", response.data.user.id);
             localStorage.setItem("userRole", response.data.user.role);
             showToast("Berhasil login", "success");
-            navigate("/");
+
+            if (response.data.user.role == "admin") {
+                console.log("goks")
+                navigate("/list-product")
+            } else {
+                navigate("/")
+            }
         } catch (error) {
             console.error("Login failed:", error);
             showToast("Gagal login", "error");
