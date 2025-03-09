@@ -18,12 +18,12 @@ export const AuthProvider = ({ children }) => {
     ]
 
     const adminRoutes = [
-        "/list-product",
-        "/create-product",
-        "/edit-product",
-        "/categories",
-        "/category",
-        "/categories/add"
+        "/admin/product",
+        "/admin/product/add",
+        "/admin/product",
+        "/admin/category",
+        "/admin/category",
+        "/admin/category/add"
     ]
 
     const customerRoutes = [
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
             // } else {
             //     nav("/")
         }
-    }, [])
+    }, [path])
 
     return <AuthContext.Provider value={{ isAuthenticated }}>{children}</AuthContext.Provider>
 }

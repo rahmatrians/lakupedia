@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router';
+import { useNavigate, useParams } from 'react-router';
 import { useToast } from '../../components/ToastContext';
 import {
   Typography,
@@ -33,17 +33,26 @@ const ProductDetail = () => {
   let { id } = useParams();
   id = parseInt(id);
   const [productDetail, setProductDetail] = useState(null);
+  const nav = useNavigate();
   const [loading, setLoading] = useState(true);
   const { showToast } = useToast();
   const [quantity, setQuantity] = useState(0);
   const userId = parseInt(localStorage.getItem('userId'));
+  const userRole = localStorage.getItem('userRole')
+  const isAuthenticated = !!localStorage.getItem("tokenSession")
 
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const data = await axios.get("http://localhost:3002/products/" + id);
-        setProductDetail(data.data);
+        await axios.get("http://localhost:3002/products/" + id)
+          .then(async (product) => {
+            await axios.get("http://localhost:3002/categories/" + product.data.categoryId)
+              .then((category) => {
+                product.data.categoryId = category.data.name
+                setProductDetail(product.data);
+              })
+          })
         setLoading(false);
       } catch (error) {
         console.log(error);
@@ -62,21 +71,48 @@ const ProductDetail = () => {
     : '';
 
   const handleAddToCart = async () => {
-    try {
-      if (quantity === 0) {
-        showToast('Please specify quantity', 'error');
-        return;
+
+    if (!isAuthenticated) {
+      nav("/login")
+    } else {
+      try {
+        if (quantity === 0) {
+          showToast('Please specify quantity', 'error');
+          return;
+        }
+
+        await axios.get('http://localhost:3002/cart?userId=' + userId)
+          .then(async (products) => {
+            if (products.data.length > 0) {
+              const productCart = products.data.find((product) => product.productId === id);
+              if (productCart) {
+                console.log("tess : ", productCart)
+                await axios.patch('http://localhost:3002/cart/' + productCart.id, {
+                  userId: userId,
+                  quantity: productCart.quantity + quantity
+                })
+              } else {
+                await axios.post('http://localhost:3002/cart', {
+                  userId: userId,
+                  productId: id,
+                  quantity: quantity
+                });
+              }
+            } else {
+              await axios.post('http://localhost:3002/cart', {
+                userId: userId,
+                productId: id,
+                quantity: quantity
+              });
+            }
+          })
+        showToast('Item added to cart 🛒', "success");
+      } catch (err) {
+        console.error(err);
+        showToast('Failed to add item ❌', 'error');
       }
-      await axios.post('http://localhost:3002/cart', {
-        userId: userId,
-        productId: id,
-        quantity: quantity
-      });
-      showToast('Item added to cart 🛒', "success");
-    } catch (err) {
-      console.error(err);
-      showToast('Failed to add item ❌', 'error');
     }
+
   };
 
   // Increase Quantity
@@ -236,8 +272,8 @@ const ProductDetail = () => {
                   icon={<ShoppingCartOutlined />}
                   size="large"
                   onClick={handleAddToCart}
-                  disabled={quantity <= 0 || productDetail.stock <= 0}
-                  style={{ width: '100%', height: '45px' }}
+                  disabled={quantity <= 0 || productDetail.stock <= 0 || userRole == "admin"}
+                  style={{ width: '100%', height: '48px' }}
                 >
                   Add to Cart
                 </Button>

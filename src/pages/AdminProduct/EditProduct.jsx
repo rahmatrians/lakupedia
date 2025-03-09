@@ -94,7 +94,7 @@ function EditProduct() {
     try {
       await axios.put(`http://localhost:3002/products/${id}`, values);
       showToast("Berhasil mengupdate produk!", "success");
-      navigate("/list-product");
+      navigate("/admin/product");
     } catch (error) {
       console.log(error);
       showToast("Gagal mengupdate produk", "error");
@@ -140,7 +140,7 @@ function EditProduct() {
 
             <Button
               icon={<LeftOutlined />}
-              onClick={() => navigate("/list-product")}
+              onClick={() => navigate("/admin/product")}
             >
               Back
             </Button>

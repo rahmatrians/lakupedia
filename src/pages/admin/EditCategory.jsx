@@ -72,12 +72,13 @@ function EditCategory() {
         setSubmitting(true);
         values["userId"] = userId
         try {
-            await axios.put(`http://localhost:3002/categories/${id}`, values);
-            showToast("Berhasil mengupdate produk!", "success");
-            navigate("/category");
+            await axios.put(`http://localhost:3002/categories/${id}`, values)
+                .then((response) => {
+                    showToast("Successfully update category", "success");
+                    navigate("/admin/category");
+                })
         } catch (error) {
-            console.log(error);
-            showToast("Gagal mengupdate produk", "error");
+            // showToast("Failed to update category", "error");
         } finally {
             setSubmitting(false);
         }
@@ -124,7 +125,7 @@ function EditCategory() {
                             {/* </Space> */}
                             <Button
                                 icon={<LeftOutlined />}
-                                onClick={() => navigate("/category")}
+                                onClick={() => navigate("/admin/category")}
                             >
                                 Back
                             </Button>

@@ -29,17 +29,25 @@ const ListProduct = () => {
     fetchData();
   }, []);
 
-  // Hero carousel content
+
+  const formattedPrice = (price) => {
+    return price ? new Intl.NumberFormat("id-ID", {
+      style: "currency",
+      currency: "IDR"
+    }).format(price) : '';
+  }
+
+
   const heroContent = [
+    {
+      title: "Ramadhan Sale",
+      subtitle: "Up to 50% off selected items",
+      image: "https://im.uniqlo.com/global-cms/spa/res1efd33a287dfa740365158758fd8c06efr.jpg",
+    },
     {
       title: "New Season Collection",
       subtitle: "Discover our latest arrivals",
       image: "https://admin.debzofficial.com/uploads/images_banner/banner1.jpg",
-    },
-    {
-      title: "Summer Sale",
-      subtitle: "Up to 50% off selected items",
-      image: "https://admin.debzofficial.com/uploads/images_banner/banner2.jpg",
     }
   ];
 
@@ -80,7 +88,7 @@ const ListProduct = () => {
                 />
                 <div className="hero-content" style={{ background: 'rgba(255, 255, 255, 0.11)' }}>
                   <Title level={1} className="hero-title">{slide.title}</Title>
-                  <Text className="hero-subtitle">{slide.subtitle}</Text>
+                  <Text className="hero-subtitle" style={{ color: 'white' }}>{slide.subtitle}</Text>
                   <Button
                     type="primary"
                     size="large"
@@ -134,7 +142,9 @@ const ListProduct = () => {
                     title={product.name}
                     description={
                       <div className="product-meta">
-                        <Text strong className="price-text">Rp{product.price}</Text>
+                        <Text strong className="price-text">
+                          {formattedPrice(product.price)}
+                        </Text>
                         <div className="product-details">
                           <Text type="secondary">{product.category}</Text>
                           <div className="rating">

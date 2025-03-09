@@ -44,7 +44,7 @@ const TambahCategory = () => {
             );
 
             showToast("Successfully saved data", "success");
-            nav("/category");
+            nav("/admin/category");
         } catch (error) {
             console.log(error);
             showToast("Failed to save data", "error");
@@ -90,7 +90,7 @@ const TambahCategory = () => {
 
                         <Button
                             icon={<LeftOutlined />}
-                            onClick={() => nav("/category")}
+                            onClick={() => nav("/admin/category")}
                         >
                             Back
                         </Button>
