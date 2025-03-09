@@ -1,50 +1,42 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router';
 import { useToast } from '../components/ToastContext';
-import { Form, Input, Button, Card, Typography, Layout, Space, theme } from 'antd';
+import { Form, Input, Button, Card, Typography, Layout, Space } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
 const { Title } = Typography;
 const { Content } = Layout;
 
-function Login() {
+const Register = () => {
     const navigate = useNavigate();
     const { showToast } = useToast();
     const [loading, setLoading] = useState(false);
     const [form] = Form.useForm();
-    const { token } = theme.useToken();
 
-    const handleSubmit = useCallback(async (values) => {
+    const handleSubmit = async (values) => {
         setLoading(true);
         try {
-            const response = await axios.post("http://localhost:3002/login", {
+            const response = await axios.post("http://localhost:3002/register", {
                 email: values.email,
-                password: values.password
+                password: values.password,
+                role: "customer"
             });
 
-            console.log("user :" + response.data.role)
             localStorage.setItem("tokenSession", response.data.accessToken);
             localStorage.setItem("userId", response.data.user.id);
-            localStorage.setItem("userRole", response.data.user.role);
-            showToast("Berhasil login", "success");
-
-            if (response.data.user.role == "admin") {
-                console.log("goks")
-                navigate("/list-product")
-            } else {
-                navigate("/")
-            }
+            showToast("Berhasil register", "success");
+            navigate("/");
         } catch (error) {
-            console.error("Login failed:", error);
-            showToast("Gagal login", "error");
+            console.log(error);
+            showToast("Gagal register", "error");
         } finally {
             setLoading(false);
         }
-    }, [navigate, showToast]);
+    };
 
     return (
-        <Layout className="layout" style={{ minHeight: '100vh', background: '#f5f5f5' }}>
+        <Layout className="layout" style={{ minHeight: '100vh', background: '#f0f2f5' }}>
             <Content style={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -56,7 +48,8 @@ function Login() {
                         width: 400,
                         maxWidth: '100%',
                         background: '#ffffff',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)'
+                        borderRadius: 8,
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
                     }}
                 >
 
@@ -66,12 +59,12 @@ function Login() {
 
                     <Space direction="vertical" size="large" style={{ width: '100%' }}>
                         <div style={{ textAlign: 'center' }}>
-                            <Title level={2} style={{ color: token.colorTextHeading, marginBottom: 24 }}>Login</Title>
+                            <Title level={2} style={{ color: '#262626', marginBottom: 24 }}>Sign Up</Title>
                         </div>
 
                         <Form
                             form={form}
-                            name="login"
+                            name="register"
                             layout="vertical"
                             onFinish={handleSubmit}
                             autoComplete="off"
@@ -79,7 +72,7 @@ function Login() {
                         >
                             <Form.Item
                                 name="email"
-                                label="Email"
+                                label={<span style={{ color: '#262626' }}>Email</span>}
                                 rules={[
                                     { required: true, message: 'Please input your email!' },
                                     { type: 'email', message: 'Please enter a valid email!' }
@@ -89,20 +82,44 @@ function Login() {
                                     prefix={<UserOutlined />}
                                     placeholder="Enter your email"
                                     size="large"
-                                    style={{ borderRadius: 4 }}
+                                    style={{ background: '#ffffff', border: '1px solid #d9d9d9' }}
                                 />
                             </Form.Item>
 
                             <Form.Item
                                 name="password"
-                                label="Password"
+                                label={<span style={{ color: '#262626' }}>Password</span>}
                                 rules={[{ required: true, message: 'Please input your password!' }]}
                             >
                                 <Input.Password
                                     prefix={<LockOutlined />}
                                     placeholder="Enter your password"
                                     size="large"
-                                    style={{ borderRadius: 4 }}
+                                    style={{ background: '#ffffff', border: '1px solid #d9d9d9' }}
+                                />
+                            </Form.Item>
+
+                            <Form.Item
+                                name="confirmPassword"
+                                label={<span style={{ color: '#262626' }}>Confirm Password</span>}
+                                dependencies={['password']}
+                                rules={[
+                                    { required: true, message: 'Please confirm your password!' },
+                                    ({ getFieldValue }) => ({
+                                        validator(_, value) {
+                                            if (!value || getFieldValue('password') === value) {
+                                                return Promise.resolve()
+                                            }
+                                            return Promise.reject(new Error('Passwords do not match!'))
+                                        },
+                                    }),
+                                ]}
+                            >
+                                <Input.Password
+                                    prefix={<LockOutlined />}
+                                    placeholder="Confirm your password"
+                                    size="large"
+                                    style={{ background: '#ffffff', border: '1px solid #d9d9d9' }}
                                 />
                             </Form.Item>
 
@@ -114,12 +131,14 @@ function Login() {
                                     block
                                     loading={loading}
                                     style={{
-                                        height: 45
+                                        height: 45,
+                                        // background: '#1890ff',
+                                        // borderColor: '#1890ff'
                                     }}
                                 >
-                                    Login
+                                    Register
                                 </Button>
-                                <Link to="/register" style={{ color: '#1890ff', textAlign: 'center', display: 'block', marginTop: 8 }}>Don't have an account? Sign Up</Link>
+                                <Link to="/login" style={{ color: '#1890ff', textAlign: 'center', display: 'block', marginTop: 8 }}>Already have an account? Sign In</Link>
                             </Form.Item>
                         </Form>
                     </Space>
@@ -129,4 +148,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Register;

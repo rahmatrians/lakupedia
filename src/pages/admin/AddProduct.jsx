@@ -1,9 +1,9 @@
 import axios from 'axios'
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
-import { useToast } from '../components/ToastContext';
+import { useToast } from '../../components/ToastContext';
 
-function TambahPersonalData() {
+function AddProduct() {
     let nav = useNavigate();
     const { showToast } = useToast();
 
@@ -52,4 +52,4 @@ function TambahPersonalData() {
     )
 }
 
-export default TambahPersonalData
+export default AddProduct

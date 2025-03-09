@@ -1,137 +1,267 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Form, Input, InputNumber, Button, Typography, Layout, Card, Space, Select, Spin, ConfigProvider, theme } from "antd";
+import { SaveOutlined, ArrowLeftOutlined, LoadingOutlined, LeftOutlined } from "@ant-design/icons";
+import axios from "axios";
 import { useNavigate, useParams } from "react-router";
 import { useToast } from "../../components/ToastContext";
+import Menus from "../../components/Menus";
+
+const { Title } = Typography;
+const { Content } = Layout;
+const { TextArea } = Input;
+const { Option } = Select;
 
 function EditProduct() {
-    let { id } = useParams();
-    let navigate = useNavigate();
-    const { showToast } = useToast();
+  let { id } = useParams();
+  let navigate = useNavigate();
+  const { showToast } = useToast();
+  const userId = parseInt(localStorage.getItem('userId'));
+  const [form] = Form.useForm();
 
-    const [formData, setFormData] = useState({
-        image: "",
-        name: "",
-        categoryId: "",
-        price: "",
-        stock: "",
-        description: "",
-    });
+  const [formData, setFormData] = useState({
+    image: "",
+    name: "",
+    categoryId: "",
+    price: "",
+    stock: "",
+    description: "",
+    userId: userId
+  });
 
-    const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get(`http://10.50.0.13:3002/products/${id}`);
-                setFormData(response.data);
-                setLoading(false);
-            } catch (error) {
-                console.log(error);
-                showToast("Gagal mengambil data produk", "error");
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, [id, showToast]);
+  const categoryOptions = [
+    "Electronics",
+    "Clothing",
+    "Home & Kitchen",
+    "Books",
+    "Beauty",
+    "Sports",
+    "Toys",
+    "Food & Beverage",
+    "Health",
+    "Furniture"
+  ];
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
 
-        // Validasi input kosong
-        if (!formData.name || !formData.categoryId || !formData.price || !formData.stock) {
-            showToast("Semua kolom wajib diisi!", "error");
-            return;
-        }
 
-        try {
-            await axios.put(`http://10.50.0.13:3002/products/${id}`, formData);
-            showToast("Berhasil mengupdate produk!", "success");
-            navigate("/list-product");
-        } catch (error) {
-            console.log(error);
-            showToast("Gagal mengupdate produk", "error");
-        }
+  useEffect(() => {
+
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3002/products/${id}`);
+        setFormData(response.data);
+        form.setFieldsValue(response.data);
+        setLoading(false);
+      } catch (error) {
+        console.log(error);
+        showToast("Gagal mengambil data produk", "error");
+        setLoading(false);
+      }
     };
 
-    return (
-        <div style={{ maxWidth: "500px", margin: "auto", textAlign: "left" }}>
-            <h2>Edit Produk</h2>
+    fetchCategoriesData();
+    fetchData();
+  }, [id, showToast, form]);
 
-            {loading ? (
-                <p>Data sedang dimuat...</p>
-            ) : (
-                <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                    <label htmlFor="image">Image URL:</label>
-                    <input
-                        type="text"
-                        id="image"
-                        value={formData.image}
-                        onChange={(event) => setFormData({ ...formData, image: event.target.value })}
-                        placeholder="Masukkan URL gambar"
-                        style={{ width: "100%", padding: "8px" }}
+
+  const fetchCategoriesData = async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get("http://localhost:3002/categories");
+      console.log("categoriess " + JSON.stringify(response.data));
+
+      setCategories(response.data);
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      showToast("Gagal memuat data", "error");
+    }
+  };
+
+  const handleChange = (field, value) => {
+    setFormData({
+      ...formData,
+      [field]: value,
+    });
+  };
+
+  const handleSubmit = async (values) => {
+    setSubmitting(true);
+    values["userId"] = userId
+    try {
+      await axios.put(`http://localhost:3002/products/${id}`, values);
+      showToast("Berhasil mengupdate produk!", "success");
+      navigate("/list-product");
+    } catch (error) {
+      console.log(error);
+      showToast("Gagal mengupdate produk", "error");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <ConfigProvider
+      theme={{
+        algorithm: theme.defaultAlgorithm,
+        token: {
+          colorPrimary: '#1890ff',
+          colorBgBase: '#ffffff',
+          colorTextBase: '#000000',
+          borderRadius: 8,
+        },
+        components: {
+          Card: {
+            colorBgContainer: '#ffffff',
+          },
+          Button: {
+            colorPrimaryHover: '#1890ff',
+          }
+        }
+      }}
+    >
+
+      <Menus />
+
+      <Layout style={{ minHeight: "100vh", background: '#f0f2f5' }}>
+        <Content style={{ padding: "50px 0" }}>
+          <Card
+            style={{
+              maxWidth: 600,
+              margin: "0 auto",
+              borderRadius: "16px",
+              boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.05)",
+              padding: "32px"
+            }}
+          >
+
+            <Button
+              icon={<LeftOutlined />}
+              onClick={() => navigate("/list-product")}
+            >
+              Back
+            </Button>
+
+            <Space direction="vertical" size="large" style={{ width: "100%" }}>
+
+              <div>
+                <Title level={3} style={{ textAlign: "center" }}>Edit Product</Title>
+              </div>
+
+              {loading ? (
+                <div style={{ textAlign: 'center', padding: '50px' }}>
+                  <Spin indicator={<LoadingOutlined style={{ fontSize: 24 }} spin />} />
+                  <p style={{ marginTop: '16px' }}>Loading...</p>
+                </div>
+              ) : (
+                <Form
+                  form={form}
+                  layout="vertical"
+                  onFinish={handleSubmit}
+                  initialValues={formData}
+                  style={{ width: "100%" }}
+                >
+                  <Form.Item
+                    name="image"
+                    label="Image URL:"
+                    rules={[{ required: false, message: 'Please input image URL!' }]}
+                  >
+                    <Input
+                      placeholder="Enter image URL"
+                      onChange={(e) => handleChange('image', e.target.value)}
                     />
+                  </Form.Item>
 
-                    <label htmlFor="name">Nama Produk:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        value={formData.name}
-                        onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-                        required
-                        placeholder="Masukkan nama produk"
-                        style={{ width: "100%", padding: "8px" }}
+                  <Form.Item
+                    name="name"
+                    label="Item Name:"
+                    rules={[{ required: true, message: 'Please input item name!' }]}
+                  >
+                    <Input
+                      placeholder="Enter item name"
+                      onChange={(e) => handleChange('name', e.target.value)}
                     />
+                  </Form.Item>
 
-                    <label htmlFor="categoryId">Kategori:</label>
-                    <input
-                        type="text"
-                        id="categoryId"
-                        value={formData.categoryId}
-                        onChange={(event) => setFormData({ ...formData, categoryId: event.target.value })}
-                        required
-                        placeholder="Masukkan kategori produk"
-                        style={{ width: "100%", padding: "8px" }}
+                  <Form.Item
+                    name="categoryId"
+                    label="Category:"
+                    rules={[{ required: true, message: 'Please select a category!' }]}
+                  >
+                    <Select
+                      style={{ width: '100%' }}
+                      placeholder="Select a category"
+                      onChange={(value) => handleChange('categoryId', value)}
+                    >
+                      {categories?.map(category => (
+                        <Option key={category.id} value={category.id}>
+                          {category.name}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item
+                    name="price"
+                    label="Price:"
+                    rules={[{ required: true, message: 'Please input price!' }]}
+                  >
+                    <InputNumber
+                      style={{ width: '100%' }}
+                      min={0}
+                      placeholder="Enter price"
+                      formatter={value => `Rp ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                      parser={value => value.replace(/Rp\s?|(,*)/g, '')}
+                      onChange={(value) => handleChange('price', value)}
                     />
+                  </Form.Item>
 
-                    <label htmlFor="price">Harga:</label>
-                    <input
-                        type="number"
-                        id="price"
-                        value={formData.price}
-                        onChange={(event) => setFormData({ ...formData, price: event.target.value })}
-                        required
-                        placeholder="Masukkan harga produk"
-                        style={{ width: "100%", padding: "8px" }}
+                  <Form.Item
+                    name="stock"
+                    label="Stock:"
+                    rules={[{ required: true, message: 'Please input stock quantity!' }]}
+                  >
+                    <InputNumber
+                      style={{ width: '100%' }}
+                      min={0}
+                      placeholder="Enter stock quantity"
+                      onChange={(value) => handleChange('stock', value)}
                     />
+                  </Form.Item>
 
-                    <label htmlFor="stock">Stok:</label>
-                    <input
-                        type="number"
-                        id="stock"
-                        value={formData.stock}
-                        onChange={(event) => setFormData({ ...formData, stock: event.target.value })}
-                        required
-                        placeholder="Masukkan jumlah stok"
-                        style={{ width: "100%", padding: "8px" }}
+                  <Form.Item
+                    name="description"
+                    label="Description:"
+                  >
+                    <TextArea
+                      rows={4}
+                      placeholder="Enter product description"
+                      onChange={(e) => handleChange('description', e.target.value)}
                     />
+                  </Form.Item>
 
-                    <label htmlFor="description">Deskripsi:</label>
-                    <textarea
-                        id="description"
-                        value={formData.description}
-                        onChange={(event) => setFormData({ ...formData, description: event.target.value })}
-                        placeholder="Tambahkan deskripsi produk"
-                        rows="4"
-                        style={{ width: "100%", padding: "8px" }}
-                    ></textarea>
-
-                    <button type="submit" style={{ padding: "10px", backgroundColor: "#007BFF", color: "white", border: "none", cursor: "pointer" }}>
-                        ✅ Simpan Perubahan
-                    </button>
-                </form>
-            )}
-        </div>
-    );
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      htmlType="submit"
+                      icon={<SaveOutlined />}
+                      loading={submitting}
+                      style={{ width: '100%', height: '48px' }}
+                    >
+                      Save Product
+                    </Button>
+                  </Form.Item>
+                </Form>
+              )}
+            </Space>
+          </Card>
+        </Content>
+      </Layout>
+    </ConfigProvider>
+  );
 }
 
 export default EditProduct;
