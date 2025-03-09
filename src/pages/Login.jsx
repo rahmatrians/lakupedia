@@ -23,8 +23,10 @@ function Login() {
                 password: values.password
             });
 
+            console.log("user :" + response.data.role)
             localStorage.setItem("tokenSession", response.data.accessToken);
             localStorage.setItem("userId", response.data.user.id);
+            localStorage.setItem("userRole", response.data.user.role);
             showToast("Berhasil login", "success");
             navigate("/");
         } catch (error) {
