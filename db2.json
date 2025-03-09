@@ -1,0 +1,240 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "admin@store.com",
+      "password": "admin123",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "email": "user@store.com",
+      "password": "user123",
+      "role": "customer"
+    },
+    {
+      "email": "farhan@store.com",
+      "password": "$2a$10$QpuUrk7WBXl20O9IsLFXkOjpWkUmcD3b/MaooC3b4ABTcdo0J3Uo6",
+      "role": "admin",
+      "id": 3
+    },
+    {
+      "email": "superadmin@store.com",
+      "password": "$2a$10$rCYvkgGbL9ULw4QBWNeIk.EgkDY2/M8GcSNJD.LOo5u3aoW65qhwS",
+      "role": "admin",
+      "id": 4
+    },
+    {
+      "email": "rahmatadmin@store.com",
+      "password": "$2a$10$qEg/wUd2AB2iHVhVfmnfWOVGlMi384hJ1F4haNRD7sHyUCRMyzqAC",
+      "role": "admin",
+      "id": 5
+    },
+    {
+      "email": "finaadmin@store.com",
+      "password": "$2a$10$3CT2ktj5nMoPIMVF0WjEm.HjkQKHdT5GZfiL98UkfSmQsL2D652Ly",
+      "id": 6
+    },
+    {
+      "email": "customer1@store.com",
+      "password": "$2a$10$ze1CCNgVW6YLRlU4oioFH.aZA5DewyLiwJijG/LO9.7oyBDCoX9Dq",
+      "role": "customer",
+      "id": 7
+    }
+  ],
+  "products": [
+    {
+      "name": "H&M Deer Peepz",
+      "price": 199000,
+      "categoryId": 6,
+      "image": "https://dynamic.zacdn.com/38OFsYFqN1oz4_U-XXWa2lQ2e2I=/filters:quality(70):format(webp)/https://static-id.zacdn.com/p/hm-3452-1727584-1.jpg",
+      "description": "T-shirt in midweight cotton jersey with a print motif, round, rib-trimmed neckline, dropped shoulders and a straight-cut hem. Loose fit for a generous but not oversized silhouette",
+      "stock": 20,
+      "userId": 5,
+      "id": 1
+    },
+    {
+      "name": "KREMLIN T-Shirt Kaos White - Armored",
+      "price": 109900,
+      "categoryId": 6,
+      "image": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/10/23/36516618-9af9-4c00-b4bd-bb5da9542524.jpg",
+      "description": "Regular Fit\nMade of 100% Combed Cotton 20s\nPlastisol Print\nUnisex Design\nMade with the highest quality stitching and printing\nSize Chart AVAILABLE IN THE LAST SLIDE\nBefore clicking BUY, make sure:\n\nThe quantity of the product you're buying is correct\nThe size of the product you're buying fits\nPlease ASK about the stock availability first\nProduct Return Policy:\n\nOnly valid for products with manufacturing defects (damaged, torn, or broken), or wrong orders.\nReplacement product availability depends on the stock.\nReturn requests can only be made within 2X 24 hours after receiving the item.\nYou must send an unboxing video as proof. WITHOUT THE UNBOXING VIDEO, DAMAGE/INCOMPLETENESS COMPLAINTS WILL NOT BE ACCEPTED.\nHangtag must still be attached.\nNo videos will be accepted if they are recorded after opening the package, or if the package is repackaged before being recorded.\nIf there’s any discrepancy in the order, please contact the admin first before leaving any feedback.",
+      "stock": 5,
+      "userId": 5,
+      "id": 2
+    },
+    {
+      "name": "Poeticluzien T-Shirt SILENCE SPEAK ( cream )",
+      "price": 89000,
+      "categoryId": 6,
+      "image": "https://down-id.img.susercontent.com/file/sg-11134201-22120-w57tvz5lrllvce.webp",
+      "description": "Material: 30s Combed Cotton (CREAM)\n\nA difference of 1-3cm is possible due to the measurement process, and the production development uses the skills of hand tailors.\n\nThere may be a color difference between the actual product and what you see because each screen has different capabilities in displaying colors. We do not guarantee that the color you see is 100% accurate to the product color.",
+      "stock": 15,
+      "userId": 5,
+      "id": 3
+    },
+    {
+      "image": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/5/16/e1b0db0d-3992-464a-a57e-c87cf46fc136.jpg",
+      "name": "CASUAL SHORT MEN LCSTE PREMIUM ORIGINAL - NAVY",
+      "categoryId": 4,
+      "price": 249000,
+      "stock": 2,
+      "description": "LCSTE Plain Shirt for Men - Premium Streetwear\n\n• 100% COTTON MATERIAL\n\n• LOCAL INDONESIAN SIZE FOR MEN: S, M, L, XL, XXL\n\n• LONG SLEEVES WITH FRONT EMBROIDERY\n\n• FULL HANGTAG & PAPERBAG",
+      "userId": 5,
+      "id": 4
+    },
+    {
+      "name": "Blouse Wanita Moselle Top HULM",
+      "price": 198000,
+      "categoryId": 4,
+      "image": "https://down-id.img.susercontent.com/file/id-11134207-7rash-m2ru4uxvn5v6f8.webp",
+      "description": "oselle Blouse by HULM\n\n• Material: Premium Polyester\n• Minimalist tie blouse with a relaxed fit design\n• Made from soft, flowy, and wrinkle-resistant fabric (no ironing needed)",
+      "stock": 30,
+      "userId": 5,
+      "id": 5
+    },
+    {
+      "name": "Poplin Cotton Dress",
+      "price": 599000,
+      "categoryId": 10,
+      "image": "https://image.uniqlo.com/UQ/ST3/id/imagesgoods/474069/item/idgoods_11_474069_3x4.jpg?width=294",
+      "description": "Product Code: 474069\nPlease note that this product may have a different product ID, even though it is a similar product.\n\nFabric Details:\n100% Cotton\n\nFunction Details:\n\nTransparency: Not transparent\nLining: None\nPockets: Yes\nWashing Instructions:\nMachine wash with cold water, low spin speed, dry clean, do not use a dryer.",
+      "stock": 1,
+      "userId": 5,
+      "id": 6
+    },
+    {
+      "name": "Sneakers Nike Air Force 1 Low Triple White Full White",
+      "price": 789999,
+      "categoryId": 3,
+      "image": "https://down-id.img.susercontent.com/file/id-11134207-7r98v-ltxgt65fujyjbd.webp",
+      "description": "CONDITION :\n\n👉 Colorway : White/White/White\n\n👉 Brand New Include Box (BNIB) / Tag (BNWT)\n\n👉 Made In Vietnam\n\n\n\nProduct Details\n\n✔️ Brand : Nike\n\n✔️ Model :315122-111/CW2288-111\n\n✔️ Main Color : White/White/White\n\n✔️ Release Date:: 24-11-2007\n\n✔️ 100% Original\n\n\n\nThe Nike Air Force 1 Low White ‘07 features an all-white leather upper with a perforated toe box and Swoosh overlays. A Nike heel embroidery and white sole completes the design.\n\nThe Nike Air Force 1 Low White ‘07 originally released in 2007, but since it is an essential colorway to the brand, it consistently restocks.",
+      "stock": 20,
+      "userId": 5,
+      "id": 7
+    },
+    {
+      "name": "Sneakers Nike Air Jordan 1 Low Pink Pastel Plum Purple",
+      "price": 1279000,
+      "categoryId": 3,
+      "image": "https://down-id.img.susercontent.com/file/id-11134207-7r992-ltxjwmei4paead.webp",
+      "description": "✨Nike Air Jordan 1 Low Pink Pastel Purple Plum✨\n\n\n\nCONDITION :\n\n👉 Colorway : PASTEL PURPLE/PINK/RATAN\n\n👉 Brand New Include Box (BNIB) / Tag (BNWT)\n\n👉 Made In China\n\n\n\nProduct Details\n\n✔️ Brand : Nike\n\n✔️ Model : DZ2768-651\n\n✔️ Main Color : PASTEL PURPLE/PINK/RATAN\n\n✔️ Release Date:: 09-01-2022\n\n✔️ 100% Original\n\n\n\nThe Air Jordan 1 Low Pastel Purple W in women’s sizing is a low-top sneaker of the Air Jordan line by Nike. \n\n  \n\nThis shoe has a colorway that combines light shades of purple, blue, cream, and pink with an all-leather upper. The shoe has an embroidered sail-colored Wings logo and a light pink embroidered Jumpman, for branding, together with Nike leather Swooshes in lavender. The laces and midsole have sail accents and pink stitching that round out the look, paired with a semi-translucent purple rubber outsole. \n\n  \n\nThe Air Jordan 1 Low Pastel Purple W was release on September 1, 2022 and retailed at $110.\n\n📸 Take With Real Picture Shoes 100",
+      "stock": 12,
+      "userId": 5,
+      "id": 8
+    },
+    {
+      "name": "Beentrill Reflective Hashtag Hoodie Black",
+      "price": 159999,
+      "categoryId": 9,
+      "image": "https://images.tokopedia.net/img/cache/900/VqbcmM/2024/5/29/06a06aaf-d114-455a-abef-c1b5405a62fd.jpg",
+      "description": "Brand New With Tag\n100% Original. Jaminan Uang Kembali 100%\n\nTrue OG is your trusted source for authentic sneaker & apparel\nEst. 2017",
+      "stock": 30,
+      "userId": 5,
+      "id": 9
+    },
+    {
+      "name": "Baseballs Caps Wanita Realistic",
+      "price": 79000,
+      "categoryId": 8,
+      "image": "https://down-id.img.susercontent.com/file/id-11134207-7r98o-ll327lp6v4hr70.webp",
+      "description": "- Baseball Cap\n- Bahan Twill\n- Warna Navy\n- Solid tone caps detail logo embroided\n- Baseball Cap closure\n- Adjustable snap closure",
+      "stock": 45,
+      "userId": 5,
+      "id": 10
+    },
+    {
+      "name": "HOOLIGANS Long Jeans Juninho Light Blue",
+      "price": 198600,
+      "categoryId": 2,
+      "image": "https://down-id.img.susercontent.com/file/sg-11134201-7rcdj-lt0jc7rll5wd34.webp",
+      "description": "Hooligans Jeans Trousers are made from stretch denim material.\n\nLightweight material, perfect for daily activities.\n\nThe style gives a western look, ideal for your outdoor activities.\n\nSIZE CHART\n\nCheck slide 3 for detailed size chart.\n\nA difference of 1-2 cm in the product may occur due to the development and production process.\n\nSpecifications\n\nLight blue jeans trousers\n12 Oz Cotton Denim (Stretch)\nTwo Stitch Sewing\nSlim Fit\nHidden rivets & Bar-tacks at stress points for longevity\nHooligans Signature Buttons\nHooligans Woven Label at the waistband\nColor discrepancies between the product and what appears on your monitor settings may occur.",
+      "stock": 32,
+      "userId": 5,
+      "id": 12
+    },
+    {
+      "name": "VIERLIN - Jeans 3158 3158A",
+      "price": 139999,
+      "categoryId": 2,
+      "image": "https://down-id.img.susercontent.com/file/8bf1e1ff67c9661a268519ab4930e84e.webp",
+      "description": "✅ Comfort\n✅ Highwaist\n✅ Nonstrecht",
+      "stock": 19,
+      "userId": 5,
+      "id": 13
+    }
+  ],
+  "categories": [
+    {
+      "id": 2,
+      "name": "Jeans",
+      "userId": 5
+    },
+    {
+      "id": 3,
+      "name": "Shoes",
+      "userId": 5
+    },
+    {
+      "name": "Shirt",
+      "userId": 5,
+      "id": 4
+    },
+    {
+      "id": 5,
+      "name": "Jackets",
+      "userId": 5
+    },
+    {
+      "id": 6,
+      "name": "T-Shirts",
+      "userId": 5
+    },
+    {
+      "id": 7,
+      "name": "Accessories",
+      "userId": 5
+    },
+    {
+      "id": 8,
+      "name": "Hats & Caps",
+      "userId": 5
+    },
+    {
+      "id": 9,
+      "name": "Sweaters & Hoodies",
+      "userId": 5
+    },
+    {
+      "id": 10,
+      "name": "Dresses",
+      "userId": 5
+    },
+    {
+      "name": "eex",
+      "userId": 5,
+      "id": 11
+    }
+  ],
+  "cart": [
+    {
+      "userId": 7,
+      "productId": 1,
+      "quantity": 1,
+      "id": 1
+    },
+    {
+      "userId": 7,
+      "productId": 2,
+      "quantity": 1,
+      "id": 2
+    },
+    {
+      "userId": 7,
+      "productId": 8,
+      "quantity": 4,
+      "id": 4
+    }
+  ],
+  "orders": []
+}
