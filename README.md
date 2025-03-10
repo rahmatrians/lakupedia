@@ -15,6 +15,7 @@ Ecommerce website
 
 ## Features
 
+
 ```
 CMS > List Category 
 ```
@@ -32,6 +33,22 @@ CMS > Remove Category
 ```
 
 ```
+CMS > List Product 
+```
+
+```
+CMS > Add Product 
+```
+
+```
+CMS > Update Product 
+```
+
+```
+CMS > Remove Product 
+```
+
+```
 Customer > Home (List Product) 
 ```
 
@@ -42,4 +59,26 @@ Customer > Product Detail Page
 ```
 Customer > Cart Page 
 ```
+
+```
+Customer > Register 
+```
+
+```
+CMS & Customer > Login 
+```
+
+
+
+
+## Show
+![home page](https://github.com/user-attachments/assets/439a0bcc-d837-4657-bee0-abfe01175ac8)
+
+
+![product detail page](https://github.com/user-attachments/assets/1734617a-4f33-46d0-80ef-bf0846461180)
+
+
+![cart page](https://github.com/user-attachments/assets/0001b945-bd3d-488e-8633-c5eeb4a4ec04)
+
+
 
