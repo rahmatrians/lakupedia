@@ -71,7 +71,7 @@ CMS & Customer > Login
 
 
 
-## Show
+## Showcase
 ![home page](https://github.com/user-attachments/assets/439a0bcc-d837-4657-bee0-abfe01175ac8)
 
 
