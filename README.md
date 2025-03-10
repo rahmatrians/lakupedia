@@ -35,10 +35,10 @@ Admin Pass : rahmatadmin
 ```
 
 ```
-Admin User : customer1@store.com
+Customer User : customer1@store.com
 ```
 ```
-Admin Pass : customer1
+Customer Pass : customer1
 ```
 
 
