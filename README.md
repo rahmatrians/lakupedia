@@ -3,6 +3,9 @@
 
 Ecommerce website
 
+<img width="1920" alt="lakupedia" src="https://github.com/user-attachments/assets/5d1e5fcd-b72b-435d-a5ef-be59ba8a14b5" />
+
+
 
 ## Authors from Kelompok 2
 
