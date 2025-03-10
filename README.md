@@ -15,6 +15,33 @@ Ecommerce website
 - [@Paneraey21](https://github.com/Paneraey21) (Raffi ALfarizi Hadianto)
 
 
+## Setup
+
+```
+use node js version 17.x > 23.x
+```
+```
+db using db2.json and there is in repos
+```
+
+
+## User Account
+
+```
+Admin User : rahmatadmin@store.com
+```
+```
+Admin Pass : rahmatadmin
+```
+
+```
+Admin User : customer1@store.com
+```
+```
+Admin Pass : customer1
+```
+
+
 
 ## Features
 
